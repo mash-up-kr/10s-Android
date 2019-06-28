@@ -1,7 +1,8 @@
-package com.mashup.tenSecond
+package com.mashup.tenSecond.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.mashup.tenSecond.R
 
 class MainActivity : AppCompatActivity() {
 
