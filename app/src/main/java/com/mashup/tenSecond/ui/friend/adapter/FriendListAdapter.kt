@@ -2,6 +2,8 @@ package com.mashup.tenSecond.ui.friend.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.tenSecond.R
@@ -12,8 +14,15 @@ class FriendListAdapter(val friendList: MutableList<User>) :
     RecyclerView.Adapter<FriendListAdapter.FriendViewHolder>() {
 
     class FriendViewHolder(val item: ItemFriendListBinding) : RecyclerView.ViewHolder(item.root) {
+        val profile = itemView?.findViewById<ImageView>(R.id.fri_profile)
+        val id = itemView?.findViewById<TextView>(R.id.fri_id)
+        val state = itemView?.findViewById<TextView>(R.id.fri_state)
+
         fun bind(user: User) {
             item.user = user
+            profile?.setImageResource(R.mipmap.ic_launcher)
+            id?.text = user.id
+            state?.text=user.state
         }
     }
 

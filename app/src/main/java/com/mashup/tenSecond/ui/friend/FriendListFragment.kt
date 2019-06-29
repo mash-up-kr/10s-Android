@@ -18,7 +18,11 @@ import org.koin.android.ext.android.inject
 class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
 
     override fun onLayoutId(): Int = R.layout.fragment_friendlist
-    val friendList: MutableList<User> = arrayListOf()
+    var friendList: MutableList<User> = arrayListOf(
+        User("aaa","aaaa","mash0","mashup0","mashup_and0"),
+        User("bbb","bbbb","mash1","mashup1","mashup_and1"),
+        User("ccc","cccc","mash2","mashup2","mashup_and2")
+    )
     val friendListAdapter: FriendListAdapter = FriendListAdapter(friendList)
     val repository: Repository by inject()
 
@@ -40,6 +44,7 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         setRecyclerView()
         getFriendList()
+        //dummy()
 
         return view
     }
@@ -52,6 +57,13 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
             this.addItemDecoration(SimpleDividerItemDecoration(context))
             this.adapter = friendListAdapter
         }
+    }
+
+    fun dummy(){
+        friendList.add(User("aaa","aaaa","mash","mashup","mashup_and"))
+        friendList.add(User("bbb","bbbb","mash2","mashup2","mashup_and2"))
+        friendList.add(User("ccc","cccc","mash3","mashup3","mashup_and3"))
+        friendListAdapter.setItem(friendList)
     }
 
     private fun getFriendList() {
