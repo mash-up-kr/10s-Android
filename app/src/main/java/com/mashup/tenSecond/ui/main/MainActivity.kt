@@ -5,9 +5,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mashup.tenSecond.R
 import com.mashup.tenSecond.databinding.ActivityMainBinding
-import com.mashup.tenSecond.ui.chat.ChatFragment
+import com.mashup.tenSecond.ui.chat.ChatListFragment
 import com.mashup.tenSecond.ui.friend.FriendListFragment
-import com.mashup.tenSecond.ui.setting.SettingFragment
 import com.namget.diaryLee.ui.base.BaseActivity
 import com.namget.lottolee.ui.main.adapter.ViewPagerAdapter
 
@@ -27,14 +26,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     fun setupViewPager() {
         fragmentList = ArrayList<Fragment>().apply {
             add(FriendListFragment.getInstance())
-            add(ChatFragment.getInstance())
-            add(SettingFragment.getInstance())
+            add(ChatListFragment.getInstance())
         }
 
         binding.viewPager.apply {
             adapter = ViewPagerAdapter(supportFragmentManager, fragmentList)
             currentItem = 0
-            offscreenPageLimit = 3
+            offscreenPageLimit = 2
 
             addOnPageChangeListener(object : androidx.viewpager.widget.ViewPager.OnPageChangeListener {
                 override fun onPageScrollStateChanged(state: Int) {
@@ -51,9 +49,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                         1 -> {
                             binding.navigation.selectedItemId = R.id.navigationWrite
                         }
-                        2 -> {
-                            binding.navigation.selectedItemId = R.id.navigationSetting
-                        }
                     }
                 }
             })
@@ -69,10 +64,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 }
                 R.id.navigationWrite -> {
                     binding.viewPager.currentItem = 1
-                    return@OnNavigationItemSelectedListener true
-                }
-                R.id.navigationSetting -> {
-                    binding.viewPager.currentItem = 2
                     return@OnNavigationItemSelectedListener true
                 }
             }

@@ -25,6 +25,7 @@ abstract class BaseFragment<B : ViewDataBinding> : androidx.fragment.app.Fragmen
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, onLayoutId(), container, false)
+        binding.lifecycleOwner = this
         return binding.root
     }
 

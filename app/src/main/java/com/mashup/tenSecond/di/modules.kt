@@ -3,6 +3,9 @@ package com.mashup.tenSecond.di
 import com.google.gson.GsonBuilder
 import com.mashup.tenSecond.BuildConfig
 import com.mashup.tenSecond.data.repository.ApiService
+import com.mashup.tenSecond.data.repository.NetworkRemote
+import com.mashup.tenSecond.data.repository.RemoteRepository
+import com.mashup.tenSecond.data.repository.Repository
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -46,10 +49,17 @@ val apiModules: Module = module {
             baseUrl(BASEURL)
         }.build().create(ApiService::class.java)
     }
-    single {
+
+    single(override=true) {
+        NetworkRemote(get()) as Repository
+    }
+
+    single(override=true) {
+        RemoteRepository(get()) as Repository
     }
 
 }
+
 
 val appModules = listOf(apiModules)
 

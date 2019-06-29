@@ -15,8 +15,4 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>() {
         super.onCreate(savedInstanceState)
 
     }
-
-
-
-
 }

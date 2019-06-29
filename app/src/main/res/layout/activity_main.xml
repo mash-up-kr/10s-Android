@@ -24,8 +24,6 @@
                 android:id="@+id/navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
                 android:background="?android:attr/windowBackground"
                 app:itemBackground="@drawable/bottom_navigation_bg"
                 app:itemIconTint="@drawable/bottom_navigation_item_color"
