@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">tenSecond</string>
+    <string name="navigation_friend_list">FriendList</string>
+    <string name="navigation_chat">Chat</string>
+    <string name="navigation_setting">Setting</string>
 </resources>

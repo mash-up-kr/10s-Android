@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/navigationFriendList"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/navigation_friend_list"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigationWrite"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/navigation_chat"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/navigationSetting"
+        android:enabled="true"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="@string/navigation_setting"
+        app:showAsAction="ifRoom" />
+
+</menu>

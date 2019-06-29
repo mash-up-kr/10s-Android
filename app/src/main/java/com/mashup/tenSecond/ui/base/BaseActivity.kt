@@ -7,13 +7,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.Job
 
 abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
     abstract fun onLayoutId(): Int
-    abstract fun setupViewModel()
     open protected lateinit var binding: B
-    val jobs = arrayListOf<Job>()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -32,11 +29,6 @@ abstract class BaseActivity<B : ViewDataBinding> : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        for(job in jobs){
-            if(job.isActive){
-                job.cancel()
-            }
-        }
         compositeDisposable.clear()
         super.onDestroy()
     }
