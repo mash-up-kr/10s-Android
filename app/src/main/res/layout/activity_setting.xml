@@ -10,12 +10,49 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                  android:text="setting"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  app:layout_constraintTop_toTopOf="parent"
-                  app:layout_constraintRight_toRightOf="parent"
-                  app:layout_constraintBottom_toBottomOf="parent"/>
+        <ImageView
+                app:layout_constraintBottom_toTopOf="@id/idText"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+        <EditText
+                android:id="@+id/idText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="id변경"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+                android:id="@+id/idChangeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="id변경"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/idText"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <EditText
+                android:id="@+id/stateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상태명"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/idText"
+                app:layout_constraintRight_toRightOf="parent"/>
+
+        <Button
+                android:id="@+id/stateChangeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상태명변경"
+                app:layout_constraintTop_toBottomOf="@id/idChangeButton"
+                app:layout_constraintLeft_toRightOf="@id/stateText"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

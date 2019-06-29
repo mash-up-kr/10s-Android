@@ -12,5 +12,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 }
