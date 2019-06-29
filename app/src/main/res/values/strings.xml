@@ -3,4 +3,14 @@
     <string name="navigation_friend_list">FriendList</string>
     <string name="navigation_chat">Chat</string>
     <string name="navigation_setting">Setting</string>
+    <string name="login_require">로그인이 필요한 서비스입니다.\n로그인 후 이용해주세요.</string>
+    <string name="login_agree">
+        <font color='#4a90e2'>이용약관</font>
+        <font color='#999999'>과</font>
+        <font color='#4a90e2'>개인정보 처리방침</font>
+        <font color='#999999'>에 동의하고 가입합니다.</font>
+    </string>
+
+    <string name="chatting">채팅</string>
+    <string name="friendList">친구목록</string>
 </resources>

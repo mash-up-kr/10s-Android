@@ -3,6 +3,8 @@ package com.mashup.tenSecond.ui.login
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -25,6 +27,7 @@ import com.mashup.tenSecond.util.toastMakeToast
 import com.namget.diaryLee.ui.base.BaseActivity
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.android.ext.android.inject
 
 
@@ -44,12 +47,30 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     private var userName = ""
     private var authType = ""
     private val TAG = "LoginActivity"
-
+    private val splashHandler = Handler()
+    lateinit var splashRunnable: Runnable
+    private var isLoginSuccess = false
+    private var isSplashShowing = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkPermission()
         init()
+        hideSplash()
+    }
+
+    private fun hideSplash() {
+        splashRunnable = Runnable {
+            isSplashShowing = false
+            if (UserInstance.loadUserToken(this).isEmpty()) {
+                loginLayout.visibility = View.VISIBLE
+                splashLayout.visibility = View.GONE
+            }
+            if (isLoginSuccess) {
+                startMainActivity()
+            }
+        }
+        splashHandler.postDelayed(splashRunnable, 2000)
     }
 
     private fun checkPermission() {
@@ -75,9 +96,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     }
 
     private fun init() {
-        binding.googleLogin.setOnClickListener {
+        googleLogin.setOnClickListener {
             signIn()
         }
+    }
+
+    fun startMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun updateUI(firebaseUser: FirebaseUser?) {
@@ -94,10 +121,11 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                     .subscribe(
                         {
                             UserInstance.saveUserToken(this, it.accessToken)
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
+                            isLoginSuccess = true
+                            startMainActivity()
                         },
                         {
+                            LogUtil.e("TAG,", "서버 요청 실패 ${it}")
                             this.toastMakeToast("서버 요청 실패")
                         }
                     )
@@ -109,10 +137,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                     .subscribe(
                         {
                             UserInstance.saveUserToken(this, it.accessToken)
-                            val intent = Intent(this, MainActivity::class.java)
-                            startActivity(intent)
+                            isLoginSuccess = true
+                            if (!isSplashShowing)
+                                startMainActivity()
                         },
                         {
+                            LogUtil.e("TAG,", "서버 요청 실패 ${it}")
                             this.toastMakeToast("서버 요청 실패")
                         }
                     )
@@ -151,6 +181,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
             }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        splashHandler.removeCallbacks(splashRunnable)
+    }
 
     private fun googleLogin() {
         auth = FirebaseAuth.getInstance()
