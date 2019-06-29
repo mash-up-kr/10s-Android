@@ -6,14 +6,14 @@
     <item
         android:id="@+id/navigationFriendList"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_friends"
         android:title="@string/navigation_friend_list"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/navigationWrite"
         android:enabled="true"
-        android:icon="@drawable/ic_launcher_background"
+        android:icon="@drawable/ic_chatting"
         android:title="@string/navigation_chat"
         app:showAsAction="ifRoom" />
 
