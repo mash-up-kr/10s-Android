@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com</domain>
+        <domain includeSubdomains="true">ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com</domain>
+        <domain includeSubdomains="true">http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com/api/auth</domain>
+    </domain-config>
+</network-security-config>
+

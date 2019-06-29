@@ -2,10 +2,10 @@ package com.mashup.tenSecond.di
 
 import com.google.gson.GsonBuilder
 import com.mashup.tenSecond.BuildConfig
+import com.mashup.tenSecond.data.model.UserInstance
 import com.mashup.tenSecond.data.repository.ApiService
 import com.mashup.tenSecond.data.repository.NetworkRemote
 import com.mashup.tenSecond.data.repository.RemoteRepository
-import com.mashup.tenSecond.data.repository.Repository
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -17,7 +17,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-const val BASEURL = "https://openapi.naver.com"
+const val BASEURL = "http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com"
 
 
 val apiModules: Module = module {
@@ -34,14 +34,14 @@ val apiModules: Module = module {
         val headerInterceptor = Interceptor {
             val original = it.request()
             val request = original.newBuilder()
-                .header("X-Naver-Client-Id", "lih3bjz8wm5kjJhL8Grx")
-                .header("X-Naver-Client-Secret", "pNsddDIvgZ")
+                .addHeader("Authorization", UserInstance.getUserToken())
+                .addHeader("email", UserInstance.getEmail())
                 .method(original.method(), original.body())
                 .build()
             it.proceed(request)
         }
 
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+        val client = OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(headerInterceptor).build()
         Retrofit.Builder().apply {
             addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             addConverterFactory(GsonConverterFactory.create(gson))
@@ -50,12 +50,12 @@ val apiModules: Module = module {
         }.build().create(ApiService::class.java)
     }
 
-    single(override=true) {
-        NetworkRemote(get()) as Repository
+    single {
+        NetworkRemote(get())
     }
 
-    single(override=true) {
-        RemoteRepository(get()) as Repository
+    single {
+        RemoteRepository(get())
     }
 
 }

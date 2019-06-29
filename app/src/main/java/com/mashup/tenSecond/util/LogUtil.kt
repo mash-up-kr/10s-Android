@@ -13,9 +13,21 @@ public class LogUtil {
             }
         }
 
+        public fun e(TAG: String, message: String, e: Exception?) {
+            if (BuildConfig.DEBUG) {
+                Log.e(TAG, message, e)
+            }
+        }
+
         public fun d(TAG: String, message: String) {
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, message)
+            }
+        }
+
+        public fun d(TAG: String, message: String, e: Exception?) {
+            if (BuildConfig.DEBUG) {
+                Log.d(TAG, message, e)
             }
         }
 
