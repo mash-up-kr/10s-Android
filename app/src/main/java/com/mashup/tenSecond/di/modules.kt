@@ -48,26 +48,6 @@ val apiModules: Module = module {
     }
     single {
     }
-    /*single {
-        AppDatabase.getInstance(androidApplication())
-    }
-
-
-    factory {
-        CalendarViewModelFactory(get())
-    }
-
-    factory {
-        WriteViewModelFactory(get(),androidApplication())
-    }
-
-    factory {
-        WriteListViewModelFactory(get(), androidApplication())
-    }
-
-    factory {
-        SettingViewModelFactory(androidApplication())
-    }*/
 
 }
 
