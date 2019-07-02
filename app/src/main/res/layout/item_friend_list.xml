@@ -8,38 +8,45 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="wrap_content">
         <ImageView
                 android:id="@+id/fri_profile"
-                android:layout_width="54dp"
-                android:layout_height="54dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginBottom="11dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="11dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                app:srcCompat="@mipmap/ic_launcher_round"/>
 
         <TextView
-                android:id="@+id/fri_id"
+                android:id="@+id/friendId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textSize="20sp"
+                android:layout_marginStart="8dp"
+                android:textSize="14sp"
+                android:textColor="#222222"
+                android:text="Daisy Yun"
                 android:textStyle="bold"
+                android:layout_marginBottom="3dp"
                 app:layout_constraintStart_toEndOf="@+id/fri_profile"
-                app:layout_constraintTop_toTopOf="@+id/fri_profile"
-                tools:text="id"/>
+                app:layout_constraintBottom_toTopOf="@id/friendState"
+        />
 
         <TextView
-                android:id="@+id/fri_state"
+                android:id="@+id/friendState"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
+                android:textSize="11sp"
+                android:textColor="#555555"
+                android:text="How are you?"
                 app:layout_constraintBottom_toBottomOf="@+id/fri_profile"
-                app:layout_constraintStart_toStartOf="@+id/fri_id"
-                tools:text="state" />
+                app:layout_constraintStart_toStartOf="@+id/friendId"
+        />
+
+        <ImageButton android:layout_width="32dp" android:layout_height="32dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

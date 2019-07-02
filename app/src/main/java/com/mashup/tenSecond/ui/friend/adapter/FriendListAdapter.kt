@@ -15,8 +15,8 @@ class FriendListAdapter(val friendList: MutableList<User>) :
 
     class FriendViewHolder(val item: ItemFriendListBinding) : RecyclerView.ViewHolder(item.root) {
         val profile = itemView?.findViewById<ImageView>(R.id.fri_profile)
-        val id = itemView?.findViewById<TextView>(R.id.fri_id)
-        val state = itemView?.findViewById<TextView>(R.id.fri_state)
+        val id = itemView?.findViewById<TextView>(R.id.friendId)
+        val state = itemView?.findViewById<TextView>(R.id.friendState)
 
         fun bind(user: User) {
             item.user = user
