@@ -46,7 +46,25 @@
                 app:layout_constraintStart_toStartOf="@+id/friendId"
         />
 
-        <ImageButton android:layout_width="32dp" android:layout_height="32dp"/>
+        <ImageButton
+                android:visibility="invisible"
+                android:id="@+id/recordButton"
+                app:layout_constraintRight_toLeftOf="@id/videoButton"
+                app:layout_constraintBottom_toBottomOf="@id/fri_profile"
+                android:background="@drawable/shape_circle_mint"
+                android:src="@drawable/ic_voice_new"
+                android:layout_width="32dp"
+                android:layout_height="32dp"/>
+
+        <ImageButton
+                android:id="@+id/videoButton"
+                app:layout_constraintBottom_toBottomOf="@id/fri_profile"
+                android:background="@drawable/shape_circle_mint"
+                android:src="@drawable/ic_video_new"
+                android:layout_width="32dp"
+                android:layout_marginRight="15dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="32dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
