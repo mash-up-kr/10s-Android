@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mashup.tenSecond.R
+import com.mashup.tenSecond.data.model.UserInstance
 import com.mashup.tenSecond.databinding.ActivityMainBinding
 import com.mashup.tenSecond.ui.chat.ChatListFragment
 import com.mashup.tenSecond.ui.friend.FriendListFragment
@@ -17,16 +18,17 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        UserInstance.saveUserToken(this,"6316019252356990255")
+
         setupViewPager()
         setupBottomNavagion()
+
     }
-
-
 
     fun setupViewPager() {
         fragmentList = ArrayList<Fragment>().apply {
-            add(FriendListFragment.getInstance())
-            add(ChatListFragment.getInstance())
+            add(FriendListFragment.newInstance())
+            add(ChatListFragment.newInstance())
         }
 
         binding.viewPager.apply {

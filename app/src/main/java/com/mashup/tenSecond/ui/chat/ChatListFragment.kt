@@ -21,20 +21,20 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 
 
     companion object {
-        var chatListFragment: ChatListFragment? = null
+        lateinit var chatListFragment: ChatListFragment
 
-        fun getInstance(): ChatListFragment {
-            if (chatListFragment == null) {
-                synchronized(ChatListFragment::class) {
-                    chatListFragment = ChatListFragment()
-                }
+        fun newInstance(): ChatListFragment {
+            synchronized(ChatListFragment::class) {
+                chatListFragment = ChatListFragment()
+                val args = Bundle()
+                chatListFragment.arguments = args
+                return chatListFragment
             }
-            return chatListFragment as ChatListFragment
         }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view =  super.onCreateView(inflater, container, savedInstanceState)
+        val view = super.onCreateView(inflater, container, savedInstanceState)
         setRecyclerView()
         return view
     }

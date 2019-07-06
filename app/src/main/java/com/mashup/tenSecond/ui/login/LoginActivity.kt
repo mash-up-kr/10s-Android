@@ -19,7 +19,7 @@ import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.mashup.tenSecond.R
 import com.mashup.tenSecond.data.model.UserInstance
-import com.mashup.tenSecond.data.repository.RemoteRepository
+import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.databinding.ActivityLoginBinding
 import com.mashup.tenSecond.ui.main.MainActivity
 import com.mashup.tenSecond.util.LogUtil
@@ -36,7 +36,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     override fun onLayoutId(): Int = R.layout.activity_login
     private lateinit var auth: FirebaseAuth
     private val RC_SIGN_IN = 100
-    val repository: RemoteRepository by inject()
+    val repository: Repository by inject()
 
     lateinit var mAuth: FirebaseAuth
     lateinit var mGoogleApiClient: GoogleApiClient

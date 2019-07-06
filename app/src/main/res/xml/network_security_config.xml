@@ -2,8 +2,11 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com</domain>
+        <domain includeSubdomains="true">http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com:5000</domain>
         <domain includeSubdomains="true">ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com</domain>
+        <domain includeSubdomains="true">ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com:5000</domain>
         <domain includeSubdomains="true">http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com/api/auth</domain>
+        <domain includeSubdomains="true">http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com/api/friend</domain>
     </domain-config>
 </network-security-config>
 

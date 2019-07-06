@@ -47,9 +47,9 @@
         />
 
         <ImageButton
-                android:visibility="invisible"
+                android:visibility="gone"
                 android:id="@+id/recordButton"
-                app:layout_constraintRight_toLeftOf="@id/videoButton"
+                app:layout_constraintRight_toLeftOf="@id/chatButton"
                 app:layout_constraintBottom_toBottomOf="@id/fri_profile"
                 android:background="@drawable/shape_circle_mint"
                 android:src="@drawable/ic_voice_new"
@@ -57,7 +57,7 @@
                 android:layout_height="32dp"/>
 
         <ImageButton
-                android:id="@+id/videoButton"
+                android:id="@+id/chatButton"
                 app:layout_constraintBottom_toBottomOf="@id/fri_profile"
                 android:background="@drawable/shape_circle_mint"
                 android:src="@drawable/ic_video_new"

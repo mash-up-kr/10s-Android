@@ -9,26 +9,26 @@ object UserInstance {
     private var userToken: String = ""
     private var email: String = ""
 
-    fun saveUserName(context: Context, name: String) = context.setStringPreference(context, Constant.USER_NAME, name)
-    fun loadUserName(context: Context): String = context.getStringPreference(context, Constant.USER_NAME)
+    fun saveUserName(context: Context, name: String) = context.setStringPreference( Constant.USER_NAME, name)
+    fun loadUserName(context: Context): String = context.getStringPreference( Constant.USER_NAME)
     fun saveUserEmail(context: Context, email: String) {
         this.email = email
-        context.setStringPreference(context, Constant.USER_EMAIL, email)
+        context.setStringPreference(Constant.USER_EMAIL, email)
 
     }
 
     fun loadUserEmail(context: Context): String {
-        this.email = context.getStringPreference(context, Constant.USER_EMAIL)
+        this.email = context.getStringPreference(Constant.USER_EMAIL)
         return email
     }
 
     fun saveUserToken(context: Context, token: String) {
         userToken = token
-        context.setStringPreference(context, Constant.USER_TOKEN, token)
+        context.setStringPreference(Constant.USER_TOKEN, token)
     }
 
     fun loadUserToken(context: Context): String {
-        userToken = context.getStringPreference(context, Constant.USER_TOKEN)
+        userToken = context.getStringPreference(Constant.USER_TOKEN)
         return userToken
     }
 

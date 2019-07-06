@@ -1,5 +1,6 @@
 package com.namget.diaryLee.ui.base
 
+import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import io.reactivex.disposables.Disposable
 abstract class BaseFragment<B : ViewDataBinding> : androidx.fragment.app.Fragment() {
     open protected lateinit var binding: B
     abstract fun onLayoutId(): Int
+
 
     private val compositeDisposable = CompositeDisposable()
 

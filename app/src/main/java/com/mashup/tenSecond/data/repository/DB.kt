@@ -11,7 +11,7 @@ class aaaDB {
     }
 
 
-    fun getInstance(database : AppDatabase) : aaaDB {
+    fun newInstance(database : AppDatabase) : aaaDB {
         if(Instance == null){
             synchronized(aaaDB::class){
                 Instance = aaaDB(database)

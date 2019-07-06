@@ -20,7 +20,7 @@ abstract class AppDatabase : RoomDatabase() {
     companion object {
         private var INSTANCE: AppDatabase? = null
 
-        fun getInstance(context: Context?): AppDatabase {
+        fun newInstance(context: Context?): AppDatabase {
             if (INSTANCE == null) {
                 synchronized(AppDatabase::class) {
                     INSTANCE = Room.databaseBuilder(context!!.applicationContext, AppDatabase::class.java, "diaryLee.db").build()
@@ -69,7 +69,7 @@ abstract class AppDatabase : RoomDatabase() {
                             // Add a delay to simulate a long-running operation
                             addDelay()
                             // Generate the data for pre-population
-                            val database = AppDatabase.getInstance(appContext, executors)
+                            val database = AppDatabase.newInstance(appContext, executors)
                             val products = DataGenerator.generateProducts()
                             val comments = DataGenerator.generateCommentsForProducts(products)
 

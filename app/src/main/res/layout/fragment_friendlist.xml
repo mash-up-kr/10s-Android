@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+        <variable name="fragment" type="com.mashup.tenSecond.ui.friend.FriendListFragment"/>
 
     </data>
 
@@ -40,6 +41,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toLeftOf="@id/searchBtn"
                     android:background="@null"
+                    android:onClick="@{fragment::startSettingActivity}"
                     android:src="@drawable/ic_setting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -50,7 +52,7 @@
                     android:layout_marginRight="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/addChattingBtn"
+                    app:layout_constraintRight_toLeftOf="@id/addFriendBtn"
                     android:background="@null"
                     android:src="@drawable/ic_search"
                     android:layout_width="wrap_content"
@@ -58,13 +60,14 @@
 
 
             <ImageButton
-                    android:id="@+id/addChattingBtn"
+                    android:id="@+id/addFriendBtn"
                     android:layout_marginRight="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    android:onClick="@{fragment::addFriend}"
                     android:background="@null"
-                    android:src="@drawable/ic_chatting_plus"
+                    android:src="@drawable/ic_plus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

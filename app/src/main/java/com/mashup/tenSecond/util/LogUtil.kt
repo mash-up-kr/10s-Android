@@ -13,7 +13,7 @@ public class LogUtil {
             }
         }
 
-        public fun e(TAG: String, message: String, e: Exception?) {
+        public fun e(TAG: String, message: String, e: Throwable) {
             if (BuildConfig.DEBUG) {
                 Log.e(TAG, message, e)
             }
@@ -25,7 +25,7 @@ public class LogUtil {
             }
         }
 
-        public fun d(TAG: String, message: String, e: Exception?) {
+        public fun d(TAG: String, message: String, e: Throwable) {
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, message, e)
             }

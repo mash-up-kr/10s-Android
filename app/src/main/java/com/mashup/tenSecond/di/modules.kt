@@ -6,10 +6,13 @@ import com.mashup.tenSecond.data.model.UserInstance
 import com.mashup.tenSecond.data.repository.ApiService
 import com.mashup.tenSecond.data.repository.NetworkRemote
 import com.mashup.tenSecond.data.repository.RemoteRepository
+import com.mashup.tenSecond.data.repository.Repository
+import com.mashup.tenSecond.ui.friend.FriendListViewModelFactory
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.dsl.module.Module
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
@@ -17,7 +20,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-const val BASEURL = "http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com"
+const val BASEURL = "http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com:5000"
 
 
 val apiModules: Module = module {
@@ -26,10 +29,12 @@ val apiModules: Module = module {
 
         val interceptor = HttpLoggingInterceptor()
         if (BuildConfig.DEBUG) {
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BASIC)
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         } else {
             interceptor.setLevel(HttpLoggingInterceptor.Level.NONE)
         }
+
+
 
         val headerInterceptor = Interceptor {
             val original = it.request()
@@ -55,11 +60,17 @@ val apiModules: Module = module {
     }
 
     single {
-        RemoteRepository(get())
+        RemoteRepository(get()) as Repository
     }
 
 }
 
+val modelFactoryModules: Module = module {
+    single {
+        FriendListViewModelFactory(get(), androidApplication())
+    }
+}
 
-val appModules = listOf(apiModules)
+
+val appModules = listOf(apiModules, modelFactoryModules)
 
