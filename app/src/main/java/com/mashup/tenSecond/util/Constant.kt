@@ -6,5 +6,7 @@ class Constant {
         val IS_LOGINED = "isLogined"
         val USER_TOKEN = "user_token"
         val USER_EMAIL = "user_email"
+        val USER_STATUS = "user_status"
+        val USER_IMAGE_URL = "user_image_url"
     }
 }

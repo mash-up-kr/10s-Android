@@ -9,4 +9,5 @@ interface Repository {
     fun addFriendList(email: String): Single<Void>
     fun getUserAuthentication(): Single<AccessToken>
     fun joinUser(email: String, nickname: String, auth_type: String, profile_image: String): Single<AccessToken>
+    fun getProfile() : Single<Void>
 }

@@ -18,15 +18,17 @@
             android:networkSecurityConfig="@xml/network_security_config"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>`
+            </intent-filter>
+            `
         </activity>
 
-        <!--<activity android:name=".ui.main.MainActivity"/>-->
+        <activity android:name=".ui.setting.SettingActivity"/>
+        <activity android:name=".ui.main.MainActivity"/>
 
     </application>
 

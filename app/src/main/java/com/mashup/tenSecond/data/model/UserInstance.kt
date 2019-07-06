@@ -9,19 +9,6 @@ object UserInstance {
     private var userToken: String = ""
     private var email: String = ""
 
-    fun saveUserName(context: Context, name: String) = context.setStringPreference( Constant.USER_NAME, name)
-    fun loadUserName(context: Context): String = context.getStringPreference( Constant.USER_NAME)
-    fun saveUserEmail(context: Context, email: String) {
-        this.email = email
-        context.setStringPreference(Constant.USER_EMAIL, email)
-
-    }
-
-    fun loadUserEmail(context: Context): String {
-        this.email = context.getStringPreference(Constant.USER_EMAIL)
-        return email
-    }
-
     fun saveUserToken(context: Context, token: String) {
         userToken = token
         context.setStringPreference(Constant.USER_TOKEN, token)
@@ -30,6 +17,23 @@ object UserInstance {
     fun loadUserToken(context: Context): String {
         userToken = context.getStringPreference(Constant.USER_TOKEN)
         return userToken
+    }
+
+    fun saveUserProfile(context: Context, name: String, email: String, status: String, imageUrl: String) {
+        context.setStringPreference(Constant.USER_NAME, name)
+        context.setStringPreference(Constant.USER_EMAIL, email)
+        context.setStringPreference(Constant.USER_STATUS, status)
+        context.setStringPreference(Constant.USER_IMAGE_URL, imageUrl)
+    }
+
+    fun loadUserProfile(context: Context): User {
+        email = context.getStringPreference(Constant.USER_EMAIL)
+        return User(
+            userName = context.getStringPreference(Constant.USER_NAME),
+            userEmail = context.getStringPreference(Constant.USER_EMAIL),
+            status = context.getStringPreference(Constant.USER_STATUS),
+            PhotoUrl = context.getStringPreference(Constant.USER_IMAGE_URL)
+        )
     }
 
     fun getUserToken(): String = userToken

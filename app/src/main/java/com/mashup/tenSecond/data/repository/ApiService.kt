@@ -24,4 +24,7 @@ interface ApiService {
     @POST("/api/auth")
     fun joinUser(@Body joinRequest: JoinRequest): Single<AccessToken>
 
+    @GET("/api/profile")
+    fun getProfile(): Single<Void>
+
 }

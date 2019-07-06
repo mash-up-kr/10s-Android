@@ -19,4 +19,6 @@ class RemoteRepository(val networkRemote: NetworkRemote) : Repository {
     ): Single<AccessToken> {
         return networkRemote.joinUser(email, nickname, auth_type, profile_image)
     }
+
+    override fun getProfile(): Single<Void> = networkRemote.getProfile()
 }

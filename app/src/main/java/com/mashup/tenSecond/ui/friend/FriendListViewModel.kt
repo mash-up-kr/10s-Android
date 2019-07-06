@@ -5,6 +5,7 @@ import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.mashup.tenSecond.data.model.FriendList
+import com.mashup.tenSecond.data.model.User
 import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.ui.base.ApplicationViewModel
 import com.mashup.tenSecond.util.Event
@@ -31,6 +32,12 @@ class FriendListViewModel(
     fun isValidEmail(target: CharSequence): Boolean {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
+
+    fun setMyProfile(){
+
+    }
+
+
 
     fun getFriendList() {
         repository.getFriendList()

@@ -23,4 +23,6 @@ class NetworkRemote(val apiService: ApiService) : Repository {
     ): Single<AccessToken> {
         return apiService.joinUser(JoinRequest(email, nickname, auth_type, profile_image))
     }
+
+    override fun getProfile(): Single<Void> = apiService.getProfile()
 }

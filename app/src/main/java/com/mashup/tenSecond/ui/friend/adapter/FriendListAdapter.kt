@@ -24,7 +24,7 @@ class FriendListAdapter(diffCallback: DiffUtil.ItemCallback<Friend>) :
 //            item.user = user
 //            profile?.setImageResource(R.mipmap.ic_launcher)
 //            id?.text = user.id
-//            state?.text = user.state
+//            status?.text = user.status
         }
     }
 

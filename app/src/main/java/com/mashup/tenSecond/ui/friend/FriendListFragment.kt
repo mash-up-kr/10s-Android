@@ -2,6 +2,7 @@ package com.mashup.tenSecond.ui.friend
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,17 +13,18 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide.init
+import com.mashup.tenSecond.R
 import com.mashup.tenSecond.data.model.Friend
+import com.mashup.tenSecond.data.model.UserInstance
 import com.mashup.tenSecond.databinding.FragmentFriendlistBinding
 import com.mashup.tenSecond.ui.base.SimpleDividerItemDecoration
 import com.mashup.tenSecond.ui.friend.adapter.FriendListAdapter
 import com.mashup.tenSecond.ui.setting.SettingActivity
-import com.mashup.tenSecond.util.LogUtil
-import com.mashup.tenSecond.util.toastMakeToast
+import com.mashup.tenSecond.util.*
 import com.namget.diaryLee.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_friendlist.*
 import org.koin.android.ext.android.inject
@@ -31,9 +33,10 @@ import org.koin.android.ext.android.inject
 class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
 
     val TAG = "FriendListFragment"
-    override fun onLayoutId(): Int = com.mashup.tenSecond.R.layout.fragment_friendlist
+    override fun onLayoutId(): Int = R.layout.fragment_friendlist
     val friendListViewModelFactory: FriendListViewModelFactory by inject()
     lateinit var friendListViewModel: FriendListViewModel
+
 
     val diffCallback = object : DiffUtil.ItemCallback<Friend>() {
         override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean =
@@ -46,6 +49,8 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
     private val friendListAdapter: FriendListAdapter by lazy {
         FriendListAdapter(diffCallback)
     }
+    private lateinit var preferences: SharedPreferences
+    private lateinit var liveSharedPreferences: LiveSharedPreferences
 
 
     companion object {
@@ -63,19 +68,33 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        setRecyclerView()
-        initViewModel()
+
         return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setRecyclerView()
+        init()
+        initViewModel()
+    }
+
     private fun setRecyclerView() {
-        binding.friendListRecyclerView.apply {
+        friendListRecyclerView.apply {
             this.layoutManager = LinearLayoutManager(context)
             this.setHasFixedSize(true)
             this.itemAnimator = DefaultItemAnimator()
             this.addItemDecoration(SimpleDividerItemDecoration(context))
             this.adapter = friendListAdapter
         }
+    }
+
+    private fun init() {
+        preferences = PreferenceManager.getDefaultSharedPreferences(context)
+        liveSharedPreferences = LiveSharedPreferences(preferences)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     private fun initViewModel() {
@@ -86,15 +105,32 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
         })
         binding.fragment = this
         friendListViewModel.getFriendList()
+
+        val user = UserInstance.loadUserProfile(context!!)
+
+        liveSharedPreferences.getString(Constant.USER_NAME, user.userName).observe(this, Observer<String> {
+            userName.setText(it)
+            LogUtil.e(TAG, "name LiveData : $it")
+        })
+
+        liveSharedPreferences.getString(Constant.USER_STATUS, user.status).observe(this, Observer<String> {
+            userStatus.setText(it)
+            LogUtil.e(TAG, "status LiveData : $it")
+        })
+
+        liveSharedPreferences.getString(Constant.USER_IMAGE_URL, user.PhotoUrl).observe(this, Observer<String> {
+            profileImage.setImageWithGlide(it)
+            LogUtil.e(TAG, "imgeUrl LiveData : $it")
+        })
     }
 
-    fun startSettingActivity(view: View){
+    fun startSettingActivity(view: View) {
         val intent = Intent(context, SettingActivity::class.java)
         startActivity(intent)
     }
 
     fun addFriend(view: View) {
-        LogUtil.e(TAG, "친구추가")
+        LogUtil.e(TAG, "친구추가 다이얼로그")
         val inputText = EditText(context)
         val builder = AlertDialog.Builder(context)
             .setTitle(resources.getString(com.mashup.tenSecond.R.string.friendAdd))

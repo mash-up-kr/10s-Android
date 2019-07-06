@@ -68,6 +68,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
             }
             if (isLoginSuccess) {
                 startMainActivity()
+            } else {
+                loginLayout.visibility = View.VISIBLE
+                splashLayout.visibility = View.GONE
             }
         }
         splashHandler.postDelayed(splashRunnable, 2000)
@@ -107,62 +110,64 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
         finish()
     }
 
+    private fun checkUser(): Boolean {
+        val user = UserInstance.loadUserProfile(this)
+        return user.userName.isEmpty() &&
+                user.userEmail.isEmpty() &&
+                user.PhotoUrl.isEmpty()
+    }
+
     private fun updateUI(firebaseUser: FirebaseUser?) {
         if (firebaseUser == null) {
             return
         }
-
-        if (!UserInstance.loadUserEmail(this).isEmpty() && !UserInstance.loadUserName(this).isEmpty()) {
-            LogUtil.e("login token", UserInstance.loadUserToken(this))
-            if (UserInstance.loadUserToken(this).isEmpty()) {
-                repository.joinUser(userEmail, userName, authType, userPhotoUrl)
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        {
-                            UserInstance.saveUserToken(this, it.accessToken)
-                            isLoginSuccess = true
+        UserInstance.loadUserProfile(this)
+        if (UserInstance.loadUserToken(this).isNullOrEmpty()) {
+            repository.joinUser(userEmail, userName, authType, userPhotoUrl)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        UserInstance.saveUserToken(this, it.accessToken)
+                        isLoginSuccess = true
+                        startMainActivity()
+                    },
+                    {
+                        LogUtil.e("TAG,", "서버 요청 실패 ${it}")
+                        this.toastMakeToast("서버 요청 실패")
+                    }
+                )
+        } else {
+            //auth 인증
+            repository.getUserAuthentication()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        UserInstance.saveUserToken(this, it.accessToken)
+                        isLoginSuccess = true
+                        if (!isSplashShowing)
                             startMainActivity()
-                        },
-                        {
-                            LogUtil.e("TAG,", "서버 요청 실패 ${it}")
-                            this.toastMakeToast("서버 요청 실패")
-                        }
-                    )
-            } else {
-                //auth 인증
-                repository.getUserAuthentication()
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                        {
-                            UserInstance.saveUserToken(this, it.accessToken)
-                            isLoginSuccess = true
-                            if (!isSplashShowing)
-                                startMainActivity()
-                        },
-                        {
-                            LogUtil.e("TAG,", "서버 요청 실패 ${it}")
-                            this.toastMakeToast("서버 요청 실패")
-                        }
-                    )
-            }
+                    },
+                    {
+                        LogUtil.e("TAG,", "서버 요청 실패 ${it}")
+                        this.toastMakeToast("서버 요청 실패")
+                    }
+                )
         }
     }
 
     private fun firebaseAuthWithGoogle(acct: GoogleSignInAccount) {
-        authType = "google"
         LogUtil.e(TAG, "firebaseAuthWithGoogle userName:" + acct.displayName)
-        userName = acct.displayName!!
-        UserInstance.saveUserName(this, userName)
         LogUtil.e(TAG, "firebaseAuthWithGoogle userEmail:" + acct.email)
-        userEmail = acct.email!!
-        UserInstance.saveUserEmail(this, userEmail)
-        userIdToken = acct.idToken!!
-        LogUtil.e(TAG, "firebaseAuthWithGoogle userIdToken:" + acct.idToken)
-        UserInstance.saveUserEmail(this, userIdToken)
-        userPhotoUrl = acct.photoUrl!!.toString()
         LogUtil.e(TAG, "firebaseAuthWithGoogle userPhotoUrl:" + acct.photoUrl)
+
+        authType = "google"
+        userName = acct.displayName!!
+        userEmail = acct.email!!
+        userIdToken = acct.idToken!!
+        userPhotoUrl = acct.photoUrl!!.toString()
+        UserInstance.saveUserProfile(this, userName, userEmail, "", userPhotoUrl)
 
         val credential = GoogleAuthProvider.getCredential(acct.idToken, null)
         auth.signInWithCredential(credential)
@@ -173,7 +178,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                     val user = auth.currentUser
                     updateUI(user!!)
                 } else {
-                    LogUtil.e(TAG, "signInWithCredential:success", it.exception)
+                    LogUtil.e(TAG, "signInWithCredential:fail")
                     this.toastMakeToast("구글 로그인 연결 실패")
                     // If sign in fails, display a message to the user.
                     updateUI(null)
