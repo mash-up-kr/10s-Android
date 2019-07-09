@@ -4,8 +4,7 @@ import android.app.Application
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mashup.tenSecond.data.model.FriendList
-import com.mashup.tenSecond.data.model.User
+import com.mashup.tenSecond.data.model.Friend
 import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.ui.base.ApplicationViewModel
 import com.mashup.tenSecond.util.Event
@@ -23,11 +22,16 @@ class FriendListViewModel(
     val TAG = "FriendListViewModel"
 
 
-    private val _friendList: MutableLiveData<FriendList> = MutableLiveData()
-    val friendList: LiveData<FriendList> get() = _friendList
+    private val _friendList: MutableLiveData<ArrayList<Friend>> = MutableLiveData()
+    val friendList: LiveData<ArrayList<Friend>> get() = _friendList
 
     private val _event: MutableLiveData<Event<String>> = MutableLiveData()
     val event: LiveData<Event<String>> get() = _event
+
+    private val _listSize : MutableLiveData<Int> = MutableLiveData()
+    val listSize : LiveData<Int> get() = _listSize
+
+
 
     fun isValidEmail(target: CharSequence): Boolean {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
@@ -45,10 +49,12 @@ class FriendListViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
+                    _listSize.value = it.size
                     _friendList.value = it
                     LogUtil.e(TAG, "친구목록 가져오기 성공 ${it}")
                 },
                 {
+                    _listSize.value = 0
                     LogUtil.e(TAG, "친구목록 가져오기 실패",it)
                     myApplication.toastMakeToast("친구목록 가져오기 실패")
                 }

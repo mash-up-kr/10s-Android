@@ -24,13 +24,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dasiy yun"
+                android:fontFamily="@font/nanum_square_b"
                 android:textSize="15sp"
                 android:textColor="#222222"
                 android:layout_marginBottom="3dp"
                 app:layout_constraintStart_toStartOf="@id/chatState"
                 app:layout_constraintBottom_toTopOf="@id/chatState"
-                app:layout_constraintTop_toTopOf="@+id/fri_profile"
-                tools:text="id"/>
+        />
 
         <TextView
                 android:id="@+id/chatState"
@@ -39,6 +39,7 @@
                 android:textSize="12sp"
                 android:textColor="#888888"
                 android:layout_marginStart="8dp"
+                android:fontFamily="@font/nanum_square_b"
                 app:layout_constraintBottom_toBottomOf="@+id/chatImage"
                 app:layout_constraintStart_toEndOf="@+id/chatImage"
                 tools:text="0:08sec"/>
@@ -49,12 +50,15 @@
                 android:layout_height="wrap_content"
                 android:text="오후 7:07"
                 android:textSize="11sp"
+                android:fontFamily="@font/nanum_square_r"
                 app:layout_constraintTop_toTopOf="@id/chatImage"
                 android:layout_marginRight="15dp"
                 app:layout_constraintRight_toRightOf="parent"
                 android:textColor="#888888"/>
 
-        <ImageView
+        <TextView
+                android:background="@drawable/shape_circle_mint"
+                android:fontFamily="@font/nanum_square_b"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 app:layout_constraintBottom_toBottomOf="@id/chatImage"

@@ -25,10 +25,10 @@
                 android:id="@+id/navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?android:attr/windowBackground"
-                app:itemBackground="@drawable/bottom_navigation_bg"
-                app:itemIconTint="@drawable/bottom_navigation_item_color"
-                app:itemTextColor="@drawable/bottom_navigation_tint_color"
+                app:itemIconTint="@color/bottom_navigation_tint_color"
+                app:labelVisibilityMode="unlabeled"
+                app:itemTextColor="@color/bottom_navigation_tint_color"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:menu="@menu/navigation"/>
 

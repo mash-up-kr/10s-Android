@@ -8,6 +8,8 @@ import com.mashup.tenSecond.data.repository.NetworkRemote
 import com.mashup.tenSecond.data.repository.RemoteRepository
 import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.ui.friend.FriendListViewModelFactory
+import com.mashup.tenSecond.ui.setting.SettingViewModelFactory
+import com.mashup.tenSecond.util.LogUtil
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -34,12 +36,12 @@ val apiModules: Module = module {
             interceptor.setLevel(HttpLoggingInterceptor.Level.NONE)
         }
 
-
+        LogUtil.e("retrofit header", "header Token : " + UserInstance.getUserToken())
 
         val headerInterceptor = Interceptor {
             val original = it.request()
             val request = original.newBuilder()
-                .addHeader("Authorization", UserInstance.getUserToken())
+                .addHeader("Authorization", "bearer ${UserInstance.getUserToken()}")
                 .addHeader("email", UserInstance.getEmail())
                 .method(original.method(), original.body())
                 .build()
@@ -68,6 +70,10 @@ val apiModules: Module = module {
 val modelFactoryModules: Module = module {
     single {
         FriendListViewModelFactory(get(), androidApplication())
+    }
+
+    single {
+        SettingViewModelFactory(get(), androidApplication())
     }
 }
 

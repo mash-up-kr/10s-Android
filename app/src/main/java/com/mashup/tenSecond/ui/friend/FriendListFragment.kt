@@ -68,7 +68,6 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-
         return view
     }
 
@@ -101,7 +100,7 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
         friendListViewModel =
             ViewModelProviders.of(this, friendListViewModelFactory).get(FriendListViewModel::class.java)
         friendListViewModel.friendList.observe(this, Observer {
-            friendListAdapter.submitList(it.friendList)
+            friendListAdapter.submitList(it)
         })
         binding.fragment = this
         friendListViewModel.getFriendList()
@@ -122,6 +121,11 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
             profileImage.setImageWithGlide(it)
             LogUtil.e(TAG, "imgeUrl LiveData : $it")
         })
+
+        friendListViewModel.listSize.observe(this, Observer {
+            friendTitleContent.setText("($it)")
+        })
+
     }
 
     fun startSettingActivity(view: View) {

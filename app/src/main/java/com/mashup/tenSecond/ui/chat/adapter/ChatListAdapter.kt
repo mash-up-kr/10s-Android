@@ -13,7 +13,7 @@ class ChatListAdapter(val friendList: MutableList<User>) :
 
     class FriendViewHolder(val item: ItemFriendListBinding) : RecyclerView.ViewHolder(item.root) {
         fun bind(user: User) {
-            item.user = user;
+//            item.user = user;
         }
     }
 

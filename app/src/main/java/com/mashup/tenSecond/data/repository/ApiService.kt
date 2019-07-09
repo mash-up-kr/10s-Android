@@ -1,7 +1,8 @@
 package com.mashup.tenSecond.data.repository
 
 import com.mashup.tenSecond.data.model.AccessToken
-import com.mashup.tenSecond.data.model.FriendList
+import com.mashup.tenSecond.data.model.Friend
+import com.mashup.tenSecond.data.model.Message
 import com.mashup.tenSecond.data.repository.request.FriendRequest
 import com.mashup.tenSecond.data.repository.request.JoinRequest
 import io.reactivex.Single
@@ -13,10 +14,10 @@ import retrofit2.http.POST
 interface ApiService {
 
     @GET("api/friend")
-    fun getFriendList(): Single<FriendList>
+    fun getFriendList(): Single<ArrayList<Friend>>
 
     @POST("api/friend")
-    fun addFriendList(@Body friendRequest: FriendRequest): Single<Void>
+    fun addFriendList(@Body friendRequest: FriendRequest): Single<Message>
 
     @GET("/api/auth")
     fun getUserAuthentication(): Single<AccessToken>
@@ -25,6 +26,6 @@ interface ApiService {
     fun joinUser(@Body joinRequest: JoinRequest): Single<AccessToken>
 
     @GET("/api/profile")
-    fun getProfile(): Single<Void>
+    fun getProfile(): Single<Message>
 
 }

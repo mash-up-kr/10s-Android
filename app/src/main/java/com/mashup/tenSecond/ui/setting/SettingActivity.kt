@@ -10,10 +10,12 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProviders
 import com.mashup.tenSecond.R
 import com.mashup.tenSecond.databinding.ActivitySettingBinding
 import com.namget.diaryLee.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_setting.*
+import org.koin.android.ext.android.inject
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -23,12 +25,17 @@ import java.util.*
 
 class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     private val GALLERY = 1
-
+    val settingViewModelFactory: SettingViewModelFactory by inject()
+    lateinit var settingViewModel: SettingViewModel
     override fun onLayoutId(): Int = R.layout.activity_setting
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        init()
+        initViewModel()
+    }
 
+    fun init() {
         idChangeButton.setOnClickListener {
             binding.idText.setEnabled(true)
             binding.idChangeButton.setVisibility(View.INVISIBLE)
@@ -41,22 +48,24 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
             binding.stateText.setEnabled(true)
             binding.stateChangeButton.setVisibility(View.INVISIBLE)
         }
-        binding.profileImage.setOnClickListener {
+        getProfileImageBtn.setOnClickListener {
             showGallary()
+        }
+
+        backBtn.setOnClickListener {
+            finish()
         }
     }
 
-
+    fun initViewModel() {
+        settingViewModel = ViewModelProviders.of(this, settingViewModelFactory).get(SettingViewModel::class.java)
+    }
 
 
     fun save() {
         //ID 공백일 경우 저장x
-        if (binding.idText.toString().length <= 0)
+        if (binding.idText.toString().isEmpty())
             Toast.makeText(this@SettingActivity, "id를 입력해주세요", Toast.LENGTH_SHORT).show()
-        /* else
-             binding.idText.toString(),binding.stateText.toString() / 사진 추측 : Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY
-             서버에 사진, ID, 상태명 전송
-             activity 종료*/
     }
 
     //프로필 이미지

@@ -48,7 +48,7 @@
                     android:id="@+id/saveBtn"
                     android:layout_marginRight="15dp"
                     android:textSize="20sp"
-                    android:textColor="@color/mintColor"
+                    android:textColor="@color/mintColorLight"
                     android:text="완료"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -69,13 +69,26 @@
                 android:layout_width="267dp"
                 android:layout_height="267dp"/>
 
+        <ImageButton
+                android:id="@+id/getProfileImageBtn"
+                android:layout_marginTop="26dp"
+                android:layout_marginLeft="30dp"
+                app:layout_constraintLeft_toRightOf="@id/profileImage"
+                app:layout_constraintRight_toRightOf="@id/profileImage"
+                app:layout_constraintTop_toTopOf="@id/profileImage"
+                android:src="@drawable/ic_camera_change"
+                android:background="@color/mintColorLight"
+                android:layout_width="45dp"
+                android:layout_height="45dp"/>
+
+
         <EditText
                 android:id="@+id/idText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textColor="#222222"
-                android:text="JasMin Kim"
+                android:text=""
                 android:background="@null"
                 android:fontFamily="@font/nanum_square_eb"
                 android:enabled="false"
@@ -101,15 +114,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:text="I'm happy to meet you guys!"
+                android:text=""
                 android:fontFamily="@font/nanum_square_b"
                 android:textSize="15sp"
                 android:textColor="#555555"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:enabled="false"
                 android:layout_marginTop="15dp"
-                android:singleLine="true"
-                android:maxLength="20"
+                android:maxLines="2"
+                android:maxLength="30"
                 app:layout_constraintTop_toBottomOf="@id/idText"
                 app:layout_constraintRight_toRightOf="parent"/>
 

@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
+
     <item
         android:id="@+id/navigationFriendList"
         android:enabled="true"
-        android:icon="@drawable/ic_friends"
-        android:title="@string/navigation_friend_list"
+        android:icon="@drawable/ic_friends_vector_24dp"
+        android:title="@null"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/navigationWrite"
         android:enabled="true"
-        android:icon="@drawable/ic_chatting"
-        android:title="@string/navigation_chat"
+        android:icon="@drawable/ic_chatting_vector_24dp"
+        android:title="@null"
         app:showAsAction="ifRoom" />
 
 </menu>

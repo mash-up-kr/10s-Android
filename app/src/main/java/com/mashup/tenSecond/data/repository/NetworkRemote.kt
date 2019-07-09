@@ -1,7 +1,8 @@
 package com.mashup.tenSecond.data.repository
 
 import com.mashup.tenSecond.data.model.AccessToken
-import com.mashup.tenSecond.data.model.FriendList
+import com.mashup.tenSecond.data.model.Friend
+import com.mashup.tenSecond.data.model.Message
 import com.mashup.tenSecond.data.repository.request.FriendRequest
 import com.mashup.tenSecond.data.repository.request.JoinRequest
 import io.reactivex.Single
@@ -9,8 +10,8 @@ import io.reactivex.Single
 
 class NetworkRemote(val apiService: ApiService) : Repository {
 
-    override fun getFriendList(): Single<FriendList> = apiService.getFriendList()
-    override fun addFriendList(email: String): Single<Void> = apiService.addFriendList(FriendRequest(email))
+    override fun getFriendList(): Single<ArrayList<Friend>> = apiService.getFriendList()
+    override fun addFriendList(email: String): Single<Message> = apiService.addFriendList(FriendRequest(email))
     override fun getUserAuthentication(): Single<AccessToken> {
         return apiService.getUserAuthentication()
     }
@@ -24,5 +25,5 @@ class NetworkRemote(val apiService: ApiService) : Repository {
         return apiService.joinUser(JoinRequest(email, nickname, auth_type, profile_image))
     }
 
-    override fun getProfile(): Single<Void> = apiService.getProfile()
+    override fun getProfile(): Single<Message> = apiService.getProfile()
 }

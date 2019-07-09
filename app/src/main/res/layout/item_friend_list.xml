@@ -3,23 +3,24 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="user" type="com.mashup.tenSecond.data.model.User"/>
+        <variable name="friend" type="com.mashup.tenSecond.data.model.Friend"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
         <ImageView
-                android:id="@+id/fri_profile"
+                android:id="@+id/friProfile"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginBottom="11dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="11dp"
+                android:glideImage="@{friend.profileImage}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_round"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
                 android:id="@+id/friendId"
@@ -28,21 +29,23 @@
                 android:layout_marginStart="8dp"
                 android:textSize="14sp"
                 android:textColor="#222222"
-                android:text="Daisy Yun"
+                android:fontFamily="@font/nanum_square_b"
+                android:text="@{friend.nickname}"
                 android:textStyle="bold"
                 android:layout_marginBottom="3dp"
-                app:layout_constraintStart_toEndOf="@+id/fri_profile"
+                app:layout_constraintStart_toEndOf="@+id/friProfile"
                 app:layout_constraintBottom_toTopOf="@id/friendState"
         />
 
         <TextView
                 android:id="@+id/friendState"
                 android:layout_width="wrap_content"
+                android:fontFamily="@font/nanum_square_b"
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
                 android:textColor="#555555"
-                android:text="How are you?"
-                app:layout_constraintBottom_toBottomOf="@+id/fri_profile"
+                android:text="@{friend.status}"
+                app:layout_constraintBottom_toBottomOf="@+id/friProfile"
                 app:layout_constraintStart_toStartOf="@+id/friendId"
         />
 
@@ -50,7 +53,7 @@
                 android:visibility="gone"
                 android:id="@+id/recordButton"
                 app:layout_constraintRight_toLeftOf="@id/chatButton"
-                app:layout_constraintBottom_toBottomOf="@id/fri_profile"
+                app:layout_constraintBottom_toBottomOf="@id/friProfile"
                 android:background="@drawable/shape_circle_mint"
                 android:src="@drawable/ic_voice_new"
                 android:layout_width="32dp"
@@ -58,7 +61,7 @@
 
         <ImageButton
                 android:id="@+id/chatButton"
-                app:layout_constraintBottom_toBottomOf="@id/fri_profile"
+                app:layout_constraintBottom_toBottomOf="@id/friProfile"
                 android:background="@drawable/shape_circle_mint"
                 android:src="@drawable/ic_video_new"
                 android:layout_width="32dp"
