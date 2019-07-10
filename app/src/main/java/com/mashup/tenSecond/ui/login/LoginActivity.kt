@@ -122,7 +122,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
             return
         }
         UserInstance.loadUserProfile(this)
-        if (UserInstance.loadUserToken(this).isNullOrEmpty()) {
+        //임시
+        if (!UserInstance.loadUserToken(this).isNullOrEmpty()) {
             repository.joinUser(userEmail, userName, authType, userPhotoUrl)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -230,12 +231,13 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)
                     firebaseAuthWithGoogle(account!!)
+                    LogUtil.e(TAG, "Google sign in Success")
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
                     LogUtil.e(TAG, "Google sign in failed", e)
                 }
             } else if (resultCode == RESULT_CANCELED) {
-
+                LogUtil.e(TAG, "Google sign CALCELED")
             }
         }
     }

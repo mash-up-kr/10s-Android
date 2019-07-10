@@ -1,4 +1,4 @@
 package com.mashup.tenSecond.data.model
 
-data class ChatInfo(
+data class ChatContent(
     val name : String)

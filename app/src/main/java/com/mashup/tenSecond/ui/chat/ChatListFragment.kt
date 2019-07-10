@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.tenSecond.R
+import com.mashup.tenSecond.data.model.Friend
 import com.mashup.tenSecond.data.model.User
 import com.mashup.tenSecond.databinding.FragmentChatListBinding
 import com.mashup.tenSecond.ui.base.SimpleDividerItemDecoration
@@ -18,6 +20,15 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     override fun onLayoutId(): Int = R.layout.fragment_chat_list
     val chatList: MutableList<User> = arrayListOf()
     val chatListAdapter: ChatListAdapter = ChatListAdapter(chatList)
+
+
+    val diffCallback = object : DiffUtil.ItemCallback<Friend>() {
+        override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean =
+            oldItem.email == newItem.email
+
+        override fun areContentsTheSame(oldItem: Friend, newItem: Friend): Boolean =
+            oldItem.email == newItem.email
+    }
 
 
     companion object {

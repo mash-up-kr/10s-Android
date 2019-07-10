@@ -10,19 +10,25 @@ import com.mashup.tenSecond.ui.chat.ChatListFragment
 import com.mashup.tenSecond.ui.friend.FriendListFragment
 import com.namget.diaryLee.ui.base.BaseActivity
 import com.namget.lottolee.ui.main.adapter.ViewPagerAdapter
+import android.util.TypedValue
+import android.util.DisplayMetrics
+import android.view.ViewGroup
+import android.view.View
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
     lateinit var fragmentList: ArrayList<Fragment>
-    override fun onLayoutId(): Int = R.layout.activity_main
+    override fun onLayoutId(): Int = com.mashup.tenSecond.R.layout.activity_main
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        UserInstance.saveUserToken(this,"6316019252356990255")
 
         setupViewPager()
         setupBottomNavagion()
-
+        setupBottomIconSize()
     }
 
     fun setupViewPager() {
@@ -46,10 +52,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
                 override fun onPageSelected(position: Int) {
                     when (position) {
                         0 -> {
-                            binding.navigation.selectedItemId = R.id.navigationFriendList
+                            binding.navigation.selectedItemId = com.mashup.tenSecond.R.id.navigationFriendList
                         }
                         1 -> {
-                            binding.navigation.selectedItemId = R.id.navigationWrite
+                            binding.navigation.selectedItemId = com.mashup.tenSecond.R.id.navigationWrite
                         }
                     }
                 }
@@ -57,19 +63,34 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+    fun setupBottomIconSize(){
+        val bottomNavigationView = findViewById<BottomNavigationView>(com.mashup.tenSecond.R.id.navigation)
+        val menuView = (bottomNavigationView).getChildAt(0)
+        for (i in 0 until (menuView as BottomNavigationMenuView).childCount) {
+            val iconView = menuView.getChildAt(i).findViewById<View>(com.mashup.tenSecond.R.id.navigationFriendList)
+            val layoutParams = iconView.getLayoutParams()
+            val displayMetrics = resources.displayMetrics
+            // set your height here
+            layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32f, displayMetrics).toInt()
+            // set your width here
+            layoutParams.width = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 32f, displayMetrics).toInt()
+            iconView.setLayoutParams(layoutParams)
+        }
+    }
+
     fun setupBottomNavagion() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.navigationFriendList -> {
+                com.mashup.tenSecond.R.id.navigationFriendList -> {
                     binding.viewPager.currentItem = 0
                     return@OnNavigationItemSelectedListener true
                 }
-                R.id.navigationWrite -> {
+                com.mashup.tenSecond.R.id.navigationWrite -> {
                     binding.viewPager.currentItem = 1
                     return@OnNavigationItemSelectedListener true
                 }
             }
             false
-        }?.let { binding.navigation.setOnNavigationItemSelectedListener(it) }
+        }?.let { navigation.setOnNavigationItemSelectedListener(it) }
     }
 }

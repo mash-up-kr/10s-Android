@@ -1,15 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
 
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/toolbarLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="?attr/actionBarSize"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@id/friendListRecyclerView"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomLayout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbarLayout" />
+
+        <View
+            android:id="@+id/bottomLayout"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/recordBtn"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:background="@drawable/shape_circle_mint"
+            android:src="@drawable/ic_voice_record"
+            app:layout_constraintBottom_toBottomOf="@id/bottomLayout"
+            app:layout_constraintLeft_toLeftOf="@id/bottomLayout"
+            app:layout_constraintRight_toRightOf="@id/bottomLayout"
+            app:layout_constraintTop_toTopOf="@id/bottomLayout" />
+
+        <ImageView
+            android:layout_marginLeft="15dp"
+            android:id="@+id/videoBtn"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/shape_circle_mint_dark"
+            android:src="@drawable/ic_video_record"
+            app:layout_constraintBottom_toBottomOf="@id/bottomLayout"
+            app:layout_constraintLeft_toRightOf="@id/recordBtn"
+            app:layout_constraintTop_toTopOf="@id/bottomLayout" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
