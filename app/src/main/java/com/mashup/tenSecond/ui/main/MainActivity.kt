@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         setupViewPager()
         setupBottomNavagion()
-        setupBottomIconSize()
+//        setupBottomIconSize()
     }
 
     fun setupViewPager() {
@@ -63,6 +63,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
     }
 
+/*
     fun setupBottomIconSize(){
         val bottomNavigationView = findViewById<BottomNavigationView>(com.mashup.tenSecond.R.id.navigation)
         val menuView = (bottomNavigationView).getChildAt(0)
@@ -77,6 +78,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             iconView.setLayoutParams(layoutParams)
         }
     }
+*/
 
     fun setupBottomNavagion() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
