@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_chat.*
 class ChatActivity : BaseActivity<ActivityChatBinding>() {
 
     override fun onLayoutId(): Int = R.layout.activity_chat
-    val chatList: MutableList<User> = arrayListOf()
+    val chatList: MutableList<ChatContent> = arrayListOf()
     val chatAdapter: ChatAdapter = ChatAdapter(chatList)
 
 
