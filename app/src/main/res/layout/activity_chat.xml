@@ -61,6 +61,45 @@
             app:layout_constraintTop_toTopOf="@id/bottomLayout" />
 
         <ImageView
+            android:id="@+id/playBtn"
+            android:visibility="gone"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:background="@drawable/shape_circle_mint_oval"
+            android:src="@drawable/ic_play_arrow_white_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/bottomLayout"
+            app:layout_constraintLeft_toLeftOf="@id/bottomLayout"
+            app:layout_constraintRight_toRightOf="@id/bottomLayout"
+            app:layout_constraintTop_toTopOf="@id/bottomLayout" />
+
+        <ImageView
+            android:id="@+id/pauseBtn"
+            android:visibility="gone"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:background="@drawable/shape_circle_mint_oval"
+            android:src="@drawable/ic_pause_white_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/bottomLayout"
+            app:layout_constraintLeft_toLeftOf="@id/bottomLayout"
+            app:layout_constraintRight_toRightOf="@id/bottomLayout"
+            app:layout_constraintTop_toTopOf="@id/bottomLayout" />
+
+
+        <ImageView
+            android:id="@+id/stopBtn"
+            android:visibility="gone"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_marginLeft="15dp"
+            android:background="@drawable/shape_circle_mint_oval"
+            android:src="@drawable/ic_stop_white_24dp"
+            app:layout_constraintBottom_toBottomOf="@id/bottomLayout"
+            app:layout_constraintLeft_toLeftOf="@id/bottomLayout"
+            app:layout_constraintRight_toRightOf="@id/bottomLayout"
+            app:layout_constraintTop_toTopOf="@id/bottomLayout" />
+
+
+        <ImageView
             android:id="@+id/videoBtn"
             android:layout_width="34dp"
             android:layout_height="34dp"

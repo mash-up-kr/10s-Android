@@ -17,6 +17,7 @@ import com.namget.diaryLee.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.koin.android.ext.android.inject
 import java.io.IOException
+import java.util.*
 
 class ChatActivity : BaseActivity<ActivityChatBinding>() {
 
@@ -28,7 +29,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
 
     var player: MediaPlayer? = null
     var recorder: MediaRecorder? = null
-    private var fileName: String = "${filesDir.name}/"
+    private var fileName: String = "${filesDir.name}/${Calendar.getInstance()}"
 
 
     val TAG = "ChatActivity"
