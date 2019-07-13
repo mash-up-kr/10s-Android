@@ -4,22 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.tenSecond.R
 import com.mashup.tenSecond.data.model.ChatRoom
-import com.mashup.tenSecond.data.model.Friend
 import com.mashup.tenSecond.data.model.User
 import com.mashup.tenSecond.databinding.FragmentChatListBinding
 import com.mashup.tenSecond.ui.base.SimpleDividerItemDecoration
 import com.mashup.tenSecond.ui.chat.adapter.ChatListAdapter
 import com.namget.diaryLee.ui.base.BaseFragment
+import org.koin.android.ext.android.inject
 
 class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
 
     override fun onLayoutId(): Int = R.layout.fragment_chat_list
     val chatList: MutableList<User> = arrayListOf()
+
+    val chatRoomListViewModelFactory: ChatRoomListViewModelFactory by inject()
+    lateinit var chatRoomListViewModel: ChatRoomListViewModel
 
     val diffCallback = object : DiffUtil.ItemCallback<ChatRoom>() {
         override fun areItemsTheSame(oldItem: ChatRoom, newItem: ChatRoom): Boolean =
@@ -45,10 +50,18 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
         setRecyclerView()
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initViewModel()
     }
 
     private fun setRecyclerView() {
@@ -61,4 +74,13 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         }
     }
 
+    private fun initViewModel() {
+        chatRoomListViewModel = ViewModelProviders.of(this, chatRoomListViewModelFactory)
+            .get(ChatRoomListViewModel::class.java)
+        chatRoomListViewModel.chatRoomList.observe(this, Observer {
+            chatListAdapter.submitList(it)
+        })
+
+        chatRoomListViewModel.getChatRoomList()
+    }
 }

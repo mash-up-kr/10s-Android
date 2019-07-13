@@ -1,6 +1,7 @@
 package com.mashup.tenSecond.data.repository
 
 import com.mashup.tenSecond.data.model.AccessToken
+import com.mashup.tenSecond.data.model.ChatRoom
 import com.mashup.tenSecond.data.model.Friend
 import com.mashup.tenSecond.data.model.Message
 import com.mashup.tenSecond.data.repository.request.FriendRequest
@@ -26,4 +27,5 @@ class NetworkRemote(val apiService: ApiService) : Repository {
     }
 
     override fun getProfile(): Single<Message> = apiService.getProfile()
+    override fun getChatRoomList(): Single<MutableList<ChatRoom>> = apiService.getChatRoomList()
 }

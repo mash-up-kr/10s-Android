@@ -40,10 +40,10 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
 
     val diffCallback = object : DiffUtil.ItemCallback<Friend>() {
         override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean =
-            oldItem.email == newItem.email
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: Friend, newItem: Friend): Boolean =
-            oldItem.email == newItem.email
+            oldItem.id == newItem.id
     }
 
     private val friendListAdapter: FriendListAdapter by lazy {
@@ -103,7 +103,6 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
             friendListAdapter.submitList(it)
         })
         binding.fragment = this
-        friendListViewModel.getFriendList()
 
         val user = UserInstance.loadUserProfile(context!!)
 
@@ -125,6 +124,9 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
         friendListViewModel.listSize.observe(this, Observer {
             friendTitleContent.setText("($it)")
         })
+
+        friendListViewModel.getFriendList()
+
 
     }
 

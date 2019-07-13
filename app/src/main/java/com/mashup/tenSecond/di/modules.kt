@@ -7,6 +7,7 @@ import com.mashup.tenSecond.data.repository.ApiService
 import com.mashup.tenSecond.data.repository.NetworkRemote
 import com.mashup.tenSecond.data.repository.RemoteRepository
 import com.mashup.tenSecond.data.repository.Repository
+import com.mashup.tenSecond.ui.chat.ChatRoomListViewModelFactory
 import com.mashup.tenSecond.ui.friend.FriendListViewModelFactory
 import com.mashup.tenSecond.ui.setting.SettingViewModelFactory
 import com.mashup.tenSecond.util.LogUtil
@@ -50,7 +51,9 @@ val apiModules: Module = module {
             it.proceed(request)
         }
 
-        val client = OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(headerInterceptor).build()
+        val client =
+            OkHttpClient.Builder().addInterceptor(interceptor).addInterceptor(headerInterceptor)
+                .build()
         Retrofit.Builder().apply {
             addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
             addConverterFactory(GsonConverterFactory.create(gson))
@@ -72,6 +75,10 @@ val apiModules: Module = module {
 val modelFactoryModules: Module = module {
     single {
         FriendListViewModelFactory(get(), androidApplication())
+    }
+
+    single {
+        ChatRoomListViewModelFactory(get(), androidApplication())
     }
 
     single {

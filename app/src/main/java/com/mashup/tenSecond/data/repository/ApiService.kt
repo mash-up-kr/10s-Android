@@ -1,6 +1,7 @@
 package com.mashup.tenSecond.data.repository
 
 import com.mashup.tenSecond.data.model.AccessToken
+import com.mashup.tenSecond.data.model.ChatRoom
 import com.mashup.tenSecond.data.model.Friend
 import com.mashup.tenSecond.data.model.Message
 import com.mashup.tenSecond.data.repository.request.FriendRequest
@@ -28,4 +29,6 @@ interface ApiService {
     @GET("/api/profile")
     fun getProfile(): Single<Message>
 
+    @GET("/api/chatRoom")
+    fun getChatRoomList(): Single<MutableList<ChatRoom>>
 }

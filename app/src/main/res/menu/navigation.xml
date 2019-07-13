@@ -9,13 +9,13 @@
         android:enabled="true"
         android:icon="@drawable/ic_friends_vector_24dp"
         android:title="@null"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/navigationWrite"
         android:enabled="true"
         android:icon="@drawable/ic_chatting_vector_24dp"
         android:title="@null"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 </menu>

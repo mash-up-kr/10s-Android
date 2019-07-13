@@ -68,7 +68,7 @@ class FriendListViewModel(
             .subscribe(
                 {
                     LogUtil.e("TAG,", "서버 요청 성공 ${it}")
-                    if(it.message == "ERROR"){
+                    if(it.message != "ERROR"){
                         getFriendList()
                     }
                 },

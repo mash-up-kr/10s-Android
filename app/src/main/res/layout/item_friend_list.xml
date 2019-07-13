@@ -54,7 +54,7 @@
                 android:id="@+id/recordButton"
                 app:layout_constraintRight_toLeftOf="@id/chatButton"
                 app:layout_constraintBottom_toBottomOf="@id/friProfile"
-                android:background="@drawable/shape_circle_mint"
+                android:background="@drawable/shape_circle_mint_oval"
                 android:src="@drawable/ic_voice_new"
                 android:layout_width="32dp"
                 android:layout_height="32dp"/>
@@ -62,7 +62,7 @@
         <ImageButton
                 android:id="@+id/chatButton"
                 app:layout_constraintBottom_toBottomOf="@id/friProfile"
-                android:background="@drawable/shape_circle_mint"
+                android:background="@drawable/shape_circle_mint_oval"
                 android:src="@drawable/ic_video_new"
                 android:layout_width="32dp"
                 android:layout_marginRight="15dp"
