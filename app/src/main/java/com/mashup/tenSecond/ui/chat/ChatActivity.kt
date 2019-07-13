@@ -3,6 +3,7 @@ package com.mashup.tenSecond.ui.chat
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
@@ -125,6 +126,11 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
             //lottie visible
             //record invisible
             //animateStart()
+            recordBtn.setVisibility(View.INVISIBLE)
+            videoBtn.setVisibility(View.INVISIBLE)
+            animation_view.setVisibility(View.VISIBLE)
+            animation_view.playAnimation()
+            animation_view.loop(true)
         }
 
     }
@@ -139,6 +145,9 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
         //lottie invisible
         //record visible
         //animateStop()
+        recordBtn.setVisibility(View.VISIBLE)
+        videoBtn.setVisibility(View.VISIBLE)
+        animation_view.setVisibility(View.INVISIBLE)
     }
 
     override fun onStop() {
