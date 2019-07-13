@@ -26,9 +26,9 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
-            android:background="@drawable/shape_white_with_gradient"
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:background="@drawable/shape_white_with_gradient"
             app:layout_constraintTop_toBottomOf="@id/toolbarLayout" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
 
@@ -60,12 +61,13 @@
             app:layout_constraintTop_toTopOf="@id/bottomLayout" />
 
         <ImageView
-            android:layout_marginLeft="15dp"
             android:id="@+id/videoBtn"
             android:layout_width="34dp"
             android:layout_height="34dp"
+            android:layout_marginLeft="15dp"
             android:background="@drawable/shape_circle_mint_dark"
             android:src="@drawable/ic_video_record"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/bottomLayout"
             app:layout_constraintLeft_toRightOf="@id/recordBtn"
             app:layout_constraintTop_toTopOf="@id/bottomLayout" />

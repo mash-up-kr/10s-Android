@@ -8,5 +8,6 @@ class Constant {
         val USER_EMAIL = "user_email"
         val USER_STATUS = "user_status"
         val USER_IMAGE_URL = "user_image_url"
+        val CHAT_ROOM_ID = "chat_room_id"
     }
 }

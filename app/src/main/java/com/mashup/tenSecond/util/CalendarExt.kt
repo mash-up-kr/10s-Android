@@ -1,5 +1,6 @@
 package com.mashup.tenSecond.util
 
+import java.text.SimpleDateFormat
 import java.util.*
 
 /*calendar fulldate  format yyyy-mm-dd*/
@@ -10,4 +11,7 @@ fun Calendar.getCalanderFulldate(): String {
     return "${year}-${month}-${date}"
 }
 
+
+fun Calendar.getCurrentDate(): String =
+    SimpleDateFormat("yyyyMMdd_kkmmss").format(Calendar.getInstance().time)
 

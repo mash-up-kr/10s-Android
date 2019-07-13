@@ -12,7 +12,9 @@ import io.reactivex.Single
 class NetworkRemote(val apiService: ApiService) : Repository {
 
     override fun getFriendList(): Single<ArrayList<Friend>> = apiService.getFriendList()
-    override fun addFriendList(email: String): Single<Message> = apiService.addFriendList(FriendRequest(email))
+    override fun addFriendList(email: String): Single<Message> =
+        apiService.addFriendList(FriendRequest(email))
+
     override fun getUserAuthentication(): Single<AccessToken> {
         return apiService.getUserAuthentication()
     }
@@ -28,4 +30,5 @@ class NetworkRemote(val apiService: ApiService) : Repository {
 
     override fun getProfile(): Single<Message> = apiService.getProfile()
     override fun getChatRoomList(): Single<MutableList<ChatRoom>> = apiService.getChatRoomList()
+    override fun getChatRoomById(id: String, start: String) = apiService.getChatRoomById(id,start)
 }

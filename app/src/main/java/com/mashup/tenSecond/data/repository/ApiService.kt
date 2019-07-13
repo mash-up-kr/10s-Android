@@ -10,6 +10,7 @@ import io.reactivex.Single
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 
 interface ApiService {
@@ -31,4 +32,8 @@ interface ApiService {
 
     @GET("/api/chatRoom")
     fun getChatRoomList(): Single<MutableList<ChatRoom>>
+
+    @GET("/api/chatRoom/{id}/message/{start}")
+    fun getChatRoomById(@Path("id") id :String , @Path("start") start : String = "")
+
 }

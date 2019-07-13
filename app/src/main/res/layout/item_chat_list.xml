@@ -11,6 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chatRoomLayout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="vertical">
@@ -31,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
             android:fontFamily="@font/nanum_square_b"
-            android:text="Dasiy yun"
+            android:text="@{chatRoom.roomName}"
             android:textColor="#222222"
             android:textSize="15sp"
             app:layout_constraintBottom_toTopOf="@id/chatState"

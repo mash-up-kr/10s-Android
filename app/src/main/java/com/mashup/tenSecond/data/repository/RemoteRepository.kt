@@ -25,4 +25,7 @@ class RemoteRepository(val networkRemote: NetworkRemote) : Repository {
     override fun getProfile(): Single<Message> = networkRemote.getProfile()
 
     override fun getChatRoomList(): Single<MutableList<ChatRoom>> = networkRemote.getChatRoomList()
+    override fun getChatRoomById(id: String, start: String) {
+        networkRemote.getChatRoomById(id, start)
+    }
 }

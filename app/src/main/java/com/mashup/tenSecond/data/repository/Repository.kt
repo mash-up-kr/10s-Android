@@ -10,7 +10,14 @@ interface Repository {
     fun getFriendList(): Single<ArrayList<Friend>>
     fun addFriendList(email: String): Single<Message>
     fun getUserAuthentication(): Single<AccessToken>
-    fun joinUser(email: String, nickname: String, auth_type: String, profile_image: String): Single<AccessToken>
-    fun getProfile() : Single<Message>
-    fun getChatRoomList() : Single<MutableList<ChatRoom>>
+    fun joinUser(
+        email: String,
+        nickname: String,
+        auth_type: String,
+        profile_image: String
+    ): Single<AccessToken>
+
+    fun getProfile(): Single<Message>
+    fun getChatRoomList(): Single<MutableList<ChatRoom>>
+    fun getChatRoomById(id: String, start: String)
 }

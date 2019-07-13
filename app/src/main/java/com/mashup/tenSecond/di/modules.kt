@@ -8,6 +8,7 @@ import com.mashup.tenSecond.data.repository.NetworkRemote
 import com.mashup.tenSecond.data.repository.RemoteRepository
 import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.ui.chat.ChatRoomListViewModelFactory
+import com.mashup.tenSecond.ui.chat.ChatRoomViewModelFactory
 import com.mashup.tenSecond.ui.friend.FriendListViewModelFactory
 import com.mashup.tenSecond.ui.setting.SettingViewModelFactory
 import com.mashup.tenSecond.util.LogUtil
@@ -83,6 +84,10 @@ val modelFactoryModules: Module = module {
 
     single {
         SettingViewModelFactory(get(), androidApplication())
+    }
+
+    single {
+        ChatRoomViewModelFactory(get(), androidApplication())
     }
 }
 
