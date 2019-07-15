@@ -123,7 +123,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
         }
         UserInstance.loadUserProfile(this)
         //임시
-        if (!UserInstance.loadUserToken(this).isNullOrEmpty()) {
+        if (UserInstance.loadUserToken(this).isNullOrEmpty()) {
             repository.joinUser(userEmail, userName, authType, userPhotoUrl)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

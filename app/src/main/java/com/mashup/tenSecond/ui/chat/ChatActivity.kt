@@ -4,9 +4,9 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.tenSecond.R
 import com.mashup.tenSecond.data.model.ChatContent
@@ -14,6 +14,7 @@ import com.mashup.tenSecond.databinding.ActivityChatBinding
 import com.mashup.tenSecond.ui.base.SimpleDividerItemDecoration
 import com.mashup.tenSecond.ui.chat.adapter.ChatAdapter
 import com.mashup.tenSecond.util.LogUtil
+import com.mashup.tenSecond.util.getCurrentDate
 import com.namget.diaryLee.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_chat.*
 import org.koin.android.ext.android.inject
@@ -30,22 +31,12 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
 
     var player: MediaPlayer? = null
     var recorder: MediaRecorder? = null
-    private var fileName: String = "${filesDir.name}/${Calendar.getInstance()}"
-
+    lateinit var fileName: String
 
     val TAG = "ChatActivity"
 
     var startPlayingFlag = true
     var startRecordingFlag = true
-
-
-    val diffCallback = object : DiffUtil.ItemCallback<ChatContent>() {
-        override fun areItemsTheSame(oldItem: ChatContent, newItem: ChatContent): Boolean =
-            oldItem.name == newItem.name
-
-        override fun areContentsTheSame(oldItem: ChatContent, newItem: ChatContent): Boolean =
-            oldItem.name == newItem.name
-    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,8 +65,41 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
 
     fun initRecorder() {
         recordBtn.setOnClickListener {
-            onRecord(startPlayingFlag)
+            changeRecordState()
         }
+
+        playBtn.setOnClickListener {
+            changePlayState()
+        }
+
+
+        animationView.setOnClickListener {
+            changeRecordState()
+        }
+
+
+
+        animationView.playAnimation()
+        animationView.loop(true)
+    }
+
+    private fun changeRecordState() {
+        onRecord(startRecordingFlag)
+        if (startPlayingFlag) {
+            bottomLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.mintColorLight))
+        } else {
+            bottomLayout.setBackgroundColor(ContextCompat.getColor(this, android.R.color.white))
+        }
+        startRecordingFlag = !startRecordingFlag
+    }
+    private fun changePlayState(){
+        onPlay(startPlayingFlag)
+        if (startPlayingFlag) {
+            playBtn.setImageResource(R.drawable.ic_pause_white_24dp)
+        } else {
+            playBtn.setImageResource(R.drawable.ic_play_white_24dp)
+        }
+        startPlayingFlag = !startPlayingFlag
     }
 
 
@@ -97,6 +121,9 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
                 setDataSource(fileName)
                 prepare()
                 start()
+                this.setOnCompletionListener(MediaPlayer.OnCompletionListener {
+                    changePlayState()
+                })
             } catch (e: IOException) {
                 LogUtil.e(TAG, "prepare() failed", e)
             }
@@ -110,6 +137,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
 
 
     private fun startRecording() {
+        fileName = "${getFilesDir().getAbsolutePath()}/${Calendar.getInstance().getCurrentDate()}.mp4"
         recorder = MediaRecorder().apply {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
@@ -123,14 +151,8 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
             }
 
             start()
-            //lottie visible
-            //record invisible
-            //animateStart()
-            recordBtn.setVisibility(View.INVISIBLE)
-            videoBtn.setVisibility(View.INVISIBLE)
-            animation_view.setVisibility(View.VISIBLE)
-            animation_view.playAnimation()
-            animation_view.loop(true)
+            recordBtn.visibility = View.INVISIBLE
+            animationView.visibility = View.VISIBLE
         }
 
     }
@@ -141,13 +163,9 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
             release()
         }
         recorder = null
-
-        //lottie invisible
-        //record visible
-        //animateStop()
-        recordBtn.setVisibility(View.VISIBLE)
-        videoBtn.setVisibility(View.VISIBLE)
-        animation_view.setVisibility(View.INVISIBLE)
+        recordBtn.visibility = View.INVISIBLE
+        animationView.visibility = View.INVISIBLE
+        playBtn.visibility = View.VISIBLE
     }
 
     override fun onStop() {

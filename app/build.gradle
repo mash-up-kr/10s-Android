@@ -135,7 +135,8 @@ dependencies {
     implementation "com.github.nkzawa:socket.io-client:$socketIOVersion"
 
     //lottie
-    implementation 'com.airbnb.android:lottie:2.5.5'
+    def lottileVersion = '2.5.5'
+    implementation "com.airbnb.android:lottie:$lottileVersion"
 
 
     testImplementation 'junit:junit:4.12'
