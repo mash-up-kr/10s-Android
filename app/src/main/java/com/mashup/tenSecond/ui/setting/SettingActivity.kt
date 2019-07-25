@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 import com.mashup.tenSecond.R
+import com.mashup.tenSecond.ViewModelFactory
 import com.mashup.tenSecond.databinding.ActivitySettingBinding
 import com.namget.diaryLee.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_setting.*
@@ -25,7 +26,7 @@ import java.util.*
 
 class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     private val GALLERY = 1
-    val settingViewModelFactory: SettingViewModelFactory by inject()
+    val viewModelFactory: ViewModelFactory by inject()
     lateinit var settingViewModel: SettingViewModel
     override fun onLayoutId(): Int = R.layout.activity_setting
 
@@ -58,7 +59,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     }
 
     fun initViewModel() {
-        settingViewModel = ViewModelProviders.of(this, settingViewModelFactory).get(SettingViewModel::class.java)
+        settingViewModel = ViewModelProviders.of(this, viewModelFactory).get(SettingViewModel::class.java)
     }
 
 

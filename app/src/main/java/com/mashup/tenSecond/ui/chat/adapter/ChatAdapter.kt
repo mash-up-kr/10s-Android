@@ -5,26 +5,29 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.tenSecond.R
-import com.mashup.tenSecond.data.model.ChatContent
-import com.mashup.tenSecond.data.model.User
+import com.mashup.tenSecond.data.model.Messages
 import com.mashup.tenSecond.databinding.ItemFriendListBinding
 import com.mashup.tenSecond.databinding.ItemISayBinding
 
-class ChatAdapter(val chatContents: MutableList<ChatContent>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatAdapter(val messages: MutableList<Messages.Message>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val I_CHATTING = 1
     val FRIEND_CHATTING = 2
 
     class MyChatingViewHolder(val item: ItemISayBinding) : RecyclerView.ViewHolder(item.root) {
-        fun bind(chatContent: ChatContent) {
+        fun bind(message : Messages.Message) {
 //            item.user = user;
         }
     }
 
     class FriendChatingViewHolder(val item: ItemFriendListBinding) : RecyclerView.ViewHolder(item.root) {
-        fun bind(chatContent : ChatContent) {
+        fun bind(message : Messages.Message) {
 //            item.user = user;
         }
+    }
+
+    fun addList(massages : List<Messages.Message>){
+        messages.addAll(messages)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -47,13 +50,13 @@ class ChatAdapter(val chatContents: MutableList<ChatContent>) : RecyclerView.Ada
         }
     }
 
-    override fun getItemCount(): Int = chatContents.size
+    override fun getItemCount(): Int = messages.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (getItemViewType(position) == I_CHATTING) {
-            (holder as MyChatingViewHolder).bind(chatContents[position])
+            (holder as MyChatingViewHolder).bind(messages[position])
         }else if(getItemViewType(position) == FRIEND_CHATTING){
-            (holder as FriendChatingViewHolder).bind(chatContents[position])
+            (holder as FriendChatingViewHolder).bind(messages[position])
         }
 
     }

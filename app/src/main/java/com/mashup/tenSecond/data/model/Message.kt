@@ -1,3 +1,14 @@
 package com.mashup.tenSecond.data.model
 
-data class Message(val message : String)
+import android.content.BroadcastReceiver
+
+data class Messages(val messages : List<Message>) {
+
+    data class Message(
+        val content: String,
+        val date: String,
+        val index: Int,
+        val receiver: Int,
+        val sender: Int
+    )
+}

@@ -3,10 +3,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="friend" type="com.mashup.tenSecond.data.model.Friend"/>
+        <variable name="friend" type="com.mashup.tenSecond.data.model.FriendList.Friend"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -50,24 +52,27 @@
         />
 
         <ImageButton
-                android:visibility="gone"
+                android:visibility="visible"
                 android:id="@+id/recordButton"
                 app:layout_constraintRight_toLeftOf="@id/chatButton"
                 app:layout_constraintBottom_toBottomOf="@id/friProfile"
                 android:background="@drawable/shape_circle_mint_oval"
                 android:src="@drawable/ic_voice_new"
-                android:layout_width="32dp"
-                android:layout_height="32dp"/>
+                android:layout_width="40dp"
+                android:layout_marginRight="15dp"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_height="40dp"/>
 
         <ImageButton
+                android:visibility="gone"
                 android:id="@+id/chatButton"
                 app:layout_constraintBottom_toBottomOf="@id/friProfile"
                 android:background="@drawable/shape_circle_mint_oval"
                 android:src="@drawable/ic_video_new"
-                android:layout_width="32dp"
+                android:layout_width="40dp"
                 android:layout_marginRight="15dp"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_height="32dp"/>
+                android:layout_height="40dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

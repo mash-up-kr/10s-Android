@@ -2,15 +2,12 @@ package com.mashup.tenSecond.di
 
 import com.google.gson.GsonBuilder
 import com.mashup.tenSecond.BuildConfig
+import com.mashup.tenSecond.ViewModelFactory
 import com.mashup.tenSecond.data.model.UserInstance
-import com.mashup.tenSecond.data.repository.ApiService
-import com.mashup.tenSecond.data.repository.NetworkRemote
-import com.mashup.tenSecond.data.repository.RemoteRepository
+import com.mashup.tenSecond.data.repository.remote.ApiService
+import com.mashup.tenSecond.data.repository.ChatRemoteDataSource
+import com.mashup.tenSecond.data.repository.ChatDataSource
 import com.mashup.tenSecond.data.repository.Repository
-import com.mashup.tenSecond.ui.chat.ChatRoomListViewModelFactory
-import com.mashup.tenSecond.ui.chat.ChatRoomViewModelFactory
-import com.mashup.tenSecond.ui.friend.FriendListViewModelFactory
-import com.mashup.tenSecond.ui.setting.SettingViewModelFactory
 import com.mashup.tenSecond.util.LogUtil
 import io.reactivex.schedulers.Schedulers
 import okhttp3.Interceptor
@@ -43,10 +40,10 @@ val apiModules: Module = module {
         val headerInterceptor = Interceptor {
             val original = it.request()
             val request = original.newBuilder()
-//                .addHeader("Authorization", "Bearer ttttttooookkkkkennnnn")
-//                .addHeader("email", "userFour@hello.world")
-                .addHeader("Authorization", "bearer ${UserInstance.getUserToken()}")
-                .addHeader("email", UserInstance.getEmail())
+                .addHeader("Authorization", "Bearer ttttttooookkkkkennnnn")
+                .addHeader("email", "userFour@hello.world")
+//                .addHeader("Authorization", "bearer ${UserInstance.getUserToken()}")
+//                .addHeader("email", UserInstance.getEmail())
                 .method(original.method(), original.body())
                 .build()
             it.proceed(request)
@@ -64,31 +61,20 @@ val apiModules: Module = module {
     }
 
     single {
-        NetworkRemote(get())
+        ChatRemoteDataSource(get())
     }
 
     single {
-        RemoteRepository(get()) as Repository
+        ChatDataSource(get()) as Repository
     }
 
 }
 
 val modelFactoryModules: Module = module {
     single {
-        FriendListViewModelFactory(get(), androidApplication())
+        ViewModelFactory(get(), androidApplication())
     }
 
-    single {
-        ChatRoomListViewModelFactory(get(), androidApplication())
-    }
-
-    single {
-        SettingViewModelFactory(get(), androidApplication())
-    }
-
-    single {
-        ChatRoomViewModelFactory(get(), androidApplication())
-    }
 }
 
 

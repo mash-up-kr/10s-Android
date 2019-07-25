@@ -15,7 +15,7 @@ class SettingViewModel(val repository: Repository ,val myApplication: Applicatio
 
     fun getProfile() {
         repository.getProfile()
-            .subscribeOn(Schedulers.newThread())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {

@@ -1,14 +1,11 @@
 package com.mashup.tenSecond.data.repository
 
-import com.mashup.tenSecond.data.model.AccessToken
-import com.mashup.tenSecond.data.model.ChatRoom
-import com.mashup.tenSecond.data.model.Friend
-import com.mashup.tenSecond.data.model.Message
+import com.mashup.tenSecond.data.model.*
 import io.reactivex.Single
 
 interface Repository {
-    fun getFriendList(): Single<ArrayList<Friend>>
-    fun addFriendList(email: String): Single<Message>
+    fun getFriendList(): Single<FriendList>
+    fun addFriendList(email: String): Single<ResultMessage>
     fun getUserAuthentication(): Single<AccessToken>
     fun joinUser(
         email: String,
@@ -17,7 +14,7 @@ interface Repository {
         profile_image: String
     ): Single<AccessToken>
 
-    fun getProfile(): Single<Message>
+    fun getProfile(): Single<ResultMessage>
     fun getChatRoomList(): Single<MutableList<ChatRoom>>
-    fun getChatRoomById(id: String, start: String)
+    fun getChatRoomById(id: Int, start : Int = 0) : Single<Messages>
 }

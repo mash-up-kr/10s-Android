@@ -10,21 +10,19 @@ import com.mashup.tenSecond.R
 import com.mashup.tenSecond.data.model.ChatRoom
 import com.mashup.tenSecond.databinding.ItemChatListBinding
 import com.mashup.tenSecond.ui.chat.ChatListFragment
+import com.mashup.tenSecond.ui.chat.ChatRoomListViewModel
 
 class ChatListAdapter(
     diffUtilCallback: DiffUtil.ItemCallback<ChatRoom>,
-    val callback: ChatListFragment.ItemClickCallback
+    val chatRoomListViewModel: ChatRoomListViewModel
 ) : ListAdapter<ChatRoom, ChatListAdapter.ChatListViewHolder>(diffUtilCallback) {
 
     inner class ChatListViewHolder(val item: ItemChatListBinding) :
         RecyclerView.ViewHolder(item.root) {
-        init {
-            item.chatRoomLayout.setOnClickListener {
-                callback.click(getItem(adapterPosition).roomId)
-            }
-        }
-        fun bind(chatRoom: ChatRoom) {
+
+        fun bind(chatRoom: ChatRoom, chatRoomListViewModel: ChatRoomListViewModel) {
             item.chatRoom = chatRoom
+            item.viewmodel = chatRoomListViewModel
         }
     }
 
@@ -40,6 +38,6 @@ class ChatListAdapter(
     }
 
     override fun onBindViewHolder(holder: ChatListViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), chatRoomListViewModel)
     }
 }
