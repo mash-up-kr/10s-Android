@@ -4,10 +4,10 @@ import android.app.Application
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.mashup.tenSecond.Event
 import com.mashup.tenSecond.data.model.ChatRoom
 import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.ui.base.ApplicationViewModel
-import com.mashup.tenSecond.Event
 import com.mashup.tenSecond.util.LogUtil
 import com.mashup.tenSecond.util.toastMakeToast
 import io.reactivex.android.schedulers.AndroidSchedulers

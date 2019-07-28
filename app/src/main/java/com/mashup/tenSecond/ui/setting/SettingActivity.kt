@@ -10,10 +10,12 @@ import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.net.toFile
 import androidx.lifecycle.ViewModelProviders
 import com.mashup.tenSecond.R
 import com.mashup.tenSecond.ViewModelFactory
 import com.mashup.tenSecond.databinding.ActivitySettingBinding
+import com.mashup.tenSecond.ui.base.setGlideImage
 import com.namget.diaryLee.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_setting.*
 import org.koin.android.ext.android.inject
@@ -29,6 +31,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     val viewModelFactory: ViewModelFactory by inject()
     lateinit var settingViewModel: SettingViewModel
     override fun onLayoutId(): Int = R.layout.activity_setting
+    lateinit var contentURI: File
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +41,16 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     fun init() {
         idChangeButton.setOnClickListener {
-            binding.idText.setEnabled(true)
-            binding.idChangeButton.setVisibility(View.INVISIBLE)
-            binding.stateText.setEnabled(false)
-            binding.stateChangeButton.setVisibility(View.VISIBLE)
+            idText.setEnabled(true)
+            idChangeButton.setVisibility(View.INVISIBLE)
+            stateText.setEnabled(false)
+            stateChangeButton.setVisibility(View.VISIBLE)
         }
         stateChangeButton.setOnClickListener {
-            binding.idText.setEnabled(false)
-            binding.idChangeButton.setVisibility(View.VISIBLE)
-            binding.stateText.setEnabled(true)
-            binding.stateChangeButton.setVisibility(View.INVISIBLE)
+            idText.setEnabled(false)
+            idChangeButton.setVisibility(View.VISIBLE)
+            stateText.setEnabled(true)
+            stateChangeButton.setVisibility(View.INVISIBLE)
         }
         getProfileImageBtn.setOnClickListener {
             showGallary()
@@ -59,7 +62,16 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     }
 
     fun initViewModel() {
+<<<<<<< HEAD
+        settingViewModel = ViewModelProviders.of(this, settingViewModelFactory).get(SettingViewModel::class.java)
+        binding.viewmodel = settingViewModel
+        settingViewModel.getProfile()
+        settingViewModel.profile.observe(this, androidx.lifecycle.Observer {
+            profileImage.setGlideImage(it.profileImage)
+        })
+=======
         settingViewModel = ViewModelProviders.of(this, viewModelFactory).get(SettingViewModel::class.java)
+>>>>>>> origin/master
     }
 
 
@@ -79,12 +91,13 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GALLERY) {
             if (resultCode == Activity.RESULT_OK && data != null) {
-                val contentURI = data!!.data
+                binding.profileImage.setGlideImage(data.data!!.also {
+                    contentURI = it.toFile()
+                })
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
-                    val path = saveImage(bitmap)
+//                    val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, contentURI)
+//                    val path = saveImage(bitmap)
                     Toast.makeText(this@SettingActivity, "Image Saved!", Toast.LENGTH_SHORT).show()
-                    binding.profileImage!!.setImageBitmap(bitmap)
                 } catch (e: IOException) {
                     e.printStackTrace()
                     Toast.makeText(this@SettingActivity, "Failed!", Toast.LENGTH_SHORT).show()
@@ -95,7 +108,7 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     fun saveImage(myBitmap: Bitmap): String {
         val bytes = ByteArrayOutputStream()
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes)
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
         val wallpaperDirectory = File((Environment.getExternalStorageDirectory()).toString() + IMAGE_DIRECTORY)
         // have the object build the directory structure, if needed.
         Log.d("fee", wallpaperDirectory.toString())

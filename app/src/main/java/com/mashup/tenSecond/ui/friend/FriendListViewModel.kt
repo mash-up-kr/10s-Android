@@ -4,10 +4,10 @@ import android.app.Application
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mashup.tenSecond.data.repository.Repository
-import com.mashup.tenSecond.ui.base.ApplicationViewModel
 import com.mashup.tenSecond.Event
 import com.mashup.tenSecond.data.model.FriendList
+import com.mashup.tenSecond.data.repository.Repository
+import com.mashup.tenSecond.ui.base.ApplicationViewModel
 import com.mashup.tenSecond.util.LogUtil
 import com.mashup.tenSecond.util.toastMakeToast
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -74,8 +74,7 @@ class FriendListViewModel(
                     LogUtil.e("TAG,", "서버 요청 실패 ${it}")
                     myApplication.toastMakeToast("서버 요청 실패")
                 }
-            )
-        )
+            ))
     }
 
     fun deleteFriendList() {
