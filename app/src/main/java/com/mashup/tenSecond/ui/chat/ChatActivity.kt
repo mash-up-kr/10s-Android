@@ -120,6 +120,7 @@ class ChatActivity : BaseActivity<ActivityChatBinding>() {
             setAudioSource(MediaRecorder.AudioSource.MIC)
             setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             setOutputFile(fileName)
+
             setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
 
             try {
