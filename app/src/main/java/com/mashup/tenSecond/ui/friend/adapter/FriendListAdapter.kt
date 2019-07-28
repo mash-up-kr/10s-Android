@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mashup.tenSecond.R
-import com.mashup.tenSecond.data.model.Friend
+import com.mashup.tenSecond.data.model.FriendList
 import com.mashup.tenSecond.databinding.ItemFriendListBinding
 
-class FriendListAdapter(diffCallback: DiffUtil.ItemCallback<Friend>) :
-    ListAdapter<Friend, FriendListAdapter.FriendViewHolder>(diffCallback) {
+class FriendListAdapter(diffCallback: DiffUtil.ItemCallback<FriendList.Friend>) :
+    ListAdapter<FriendList.Friend, FriendListAdapter.FriendViewHolder>(diffCallback) {
 
     class FriendViewHolder(val item: ItemFriendListBinding) : RecyclerView.ViewHolder(item.root) {
 
-        fun bind(freind: Friend) {
+        fun bind(freind: FriendList.Friend) {
             item.friend = freind
         }
     }

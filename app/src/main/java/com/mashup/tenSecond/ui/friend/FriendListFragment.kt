@@ -18,7 +18,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mashup.tenSecond.R
-import com.mashup.tenSecond.data.model.Friend
+import com.mashup.tenSecond.ViewModelFactory
+import com.mashup.tenSecond.data.model.FriendList
 import com.mashup.tenSecond.data.model.UserInstance
 import com.mashup.tenSecond.databinding.FragmentFriendlistBinding
 import com.mashup.tenSecond.ui.base.SimpleDividerItemDecoration
@@ -34,15 +35,15 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
 
     val TAG = "FriendListFragment"
     override fun onLayoutId(): Int = R.layout.fragment_friendlist
-    val friendListViewModelFactory: FriendListViewModelFactory by inject()
+    val viewModelFactory: ViewModelFactory by inject()
     lateinit var friendListViewModel: FriendListViewModel
 
 
-    val diffCallback = object : DiffUtil.ItemCallback<Friend>() {
-        override fun areItemsTheSame(oldItem: Friend, newItem: Friend): Boolean =
+    val diffCallback = object : DiffUtil.ItemCallback<FriendList.Friend>() {
+        override fun areItemsTheSame(oldItem: FriendList.Friend, newItem: FriendList.Friend): Boolean =
             oldItem.id == newItem.id
 
-        override fun areContentsTheSame(oldItem: Friend, newItem: Friend): Boolean =
+        override fun areContentsTheSame(oldItem: FriendList.Friend, newItem: FriendList.Friend): Boolean =
             oldItem.id == newItem.id
     }
 
@@ -98,7 +99,7 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
 
     private fun initViewModel() {
         friendListViewModel =
-            ViewModelProviders.of(this, friendListViewModelFactory).get(FriendListViewModel::class.java)
+            ViewModelProviders.of(this, viewModelFactory).get(FriendListViewModel::class.java)
         friendListViewModel.friendList.observe(this, Observer {
             friendListAdapter.submitList(it)
         })
@@ -122,7 +123,7 @@ class FriendListFragment : BaseFragment<FragmentFriendlistBinding>() {
         })
 
         friendListViewModel.listSize.observe(this, Observer {
-            friendTitleContent.setText("($it)")
+            friendTitleContent.text = ("($it)")
         })
 
         friendListViewModel.getFriendList()

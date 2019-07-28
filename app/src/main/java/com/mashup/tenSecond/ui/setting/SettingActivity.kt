@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.net.toFile
 import androidx.lifecycle.ViewModelProviders
 import com.mashup.tenSecond.R
+import com.mashup.tenSecond.ViewModelFactory
 import com.mashup.tenSecond.databinding.ActivitySettingBinding
 import com.mashup.tenSecond.ui.base.setGlideImage
 import com.namget.diaryLee.ui.base.BaseActivity
@@ -27,7 +28,7 @@ import java.util.*
 
 class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     private val GALLERY = 1
-    val settingViewModelFactory: SettingViewModelFactory by inject()
+    val viewModelFactory: ViewModelFactory by inject()
     lateinit var settingViewModel: SettingViewModel
     override fun onLayoutId(): Int = R.layout.activity_setting
     lateinit var contentURI: File
@@ -61,12 +62,16 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     }
 
     fun initViewModel() {
+<<<<<<< HEAD
         settingViewModel = ViewModelProviders.of(this, settingViewModelFactory).get(SettingViewModel::class.java)
         binding.viewmodel = settingViewModel
         settingViewModel.getProfile()
         settingViewModel.profile.observe(this, androidx.lifecycle.Observer {
             profileImage.setGlideImage(it.profileImage)
         })
+=======
+        settingViewModel = ViewModelProviders.of(this, viewModelFactory).get(SettingViewModel::class.java)
+>>>>>>> origin/master
     }
 
 

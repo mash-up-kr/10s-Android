@@ -10,7 +10,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mashup.tenSecond.EventObserver
 import com.mashup.tenSecond.R
+import com.mashup.tenSecond.ViewModelFactory
 import com.mashup.tenSecond.data.model.ChatRoom
 import com.mashup.tenSecond.data.model.User
 import com.mashup.tenSecond.databinding.FragmentChatListBinding
@@ -25,7 +27,7 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     override fun onLayoutId(): Int = R.layout.fragment_chat_list
     val chatList: MutableList<User> = arrayListOf()
 
-    val chatRoomListViewModelFactory: ChatRoomListViewModelFactory by inject()
+    val viewModelFactory: ViewModelFactory by inject()
     lateinit var chatRoomListViewModel: ChatRoomListViewModel
 
     interface ItemClickCallback {
@@ -49,7 +51,7 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
             oldItem.roomId == newItem.roomId
     }
 
-    val chatListAdapter: ChatListAdapter = ChatListAdapter(diffCallback, itemClickCallback)
+    lateinit var chatListAdapter: ChatListAdapter
 
 
     companion object {
@@ -71,15 +73,17 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
         savedInstanceState: Bundle?
     ): View? {
         val view = super.onCreateView(inflater, container, savedInstanceState)
-        setRecyclerView()
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViewModel()
+        setRecyclerView()
+
     }
 
     private fun setRecyclerView() {
+        chatListAdapter = ChatListAdapter(diffCallback, chatRoomListViewModel)
         binding.chatListRecyclerView.apply {
             this.layoutManager = LinearLayoutManager(context)
             this.setHasFixedSize(true)
@@ -90,10 +94,17 @@ class ChatListFragment : BaseFragment<FragmentChatListBinding>() {
     }
 
     private fun initViewModel() {
-        chatRoomListViewModel = ViewModelProviders.of(this, chatRoomListViewModelFactory)
+        chatRoomListViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(ChatRoomListViewModel::class.java)
         chatRoomListViewModel.chatRoomList.observe(this, Observer {
             chatListAdapter.submitList(it)
+        })
+
+        chatRoomListViewModel.chatRoom.observe(this, EventObserver {
+            val intent = Intent(context, ChatActivity::class.java).apply {
+                putExtra(Constant.CHAT_ROOM_ID, id)
+            }
+            startActivity(intent)
         })
 
         chatRoomListViewModel.getChatRoomList()

@@ -4,10 +4,10 @@ import android.app.Application
 import android.text.TextUtils
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.mashup.tenSecond.data.model.Friend
+import com.mashup.tenSecond.Event
+import com.mashup.tenSecond.data.model.FriendList
 import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.ui.base.ApplicationViewModel
-import com.mashup.tenSecond.util.Event
 import com.mashup.tenSecond.util.LogUtil
 import com.mashup.tenSecond.util.toastMakeToast
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,8 +22,8 @@ class FriendListViewModel(
     val TAG = "FriendListViewModel"
 
 
-    private val _friendList: MutableLiveData<ArrayList<Friend>> = MutableLiveData()
-    val friendList: LiveData<ArrayList<Friend>> get() = _friendList
+    private val _friendList: MutableLiveData<ArrayList<FriendList.Friend>> = MutableLiveData()
+    val friendList: LiveData<ArrayList<FriendList.Friend>> get() = _friendList
 
     private val _event: MutableLiveData<Event<String>> = MutableLiveData()
     val event: LiveData<Event<String>> get() = _event
@@ -43,12 +43,12 @@ class FriendListViewModel(
 
     fun getFriendList() {
         addDisposable(repository.getFriendList()
-            .subscribeOn(Schedulers.newThread())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
-                    _listSize.value = it.size
-                    _friendList.value = it
+                    _listSize.value = it.friendList.size
+                    _friendList.value = it.friendList
                     LogUtil.e(TAG, "친구목록 가져오기 성공 ${it}")
                 },
                 {
@@ -61,7 +61,7 @@ class FriendListViewModel(
 
     fun addFriendList(email: String) {
         addDisposable(repository.addFriendList(email)
-            .subscribeOn(Schedulers.newThread())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {

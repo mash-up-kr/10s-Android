@@ -35,8 +35,13 @@ class SettingViewModel(val repository: Repository, val myApplication: Applicatio
     }
 
     fun getProfile() {
+<<<<<<< HEAD
         addDisposable(repository.getProfile()
             .subscribeOn(Schedulers.newThread())
+=======
+        repository.getProfile()
+            .subscribeOn(Schedulers.io())
+>>>>>>> origin/master
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
