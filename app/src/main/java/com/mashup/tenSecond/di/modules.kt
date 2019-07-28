@@ -3,9 +3,9 @@ package com.mashup.tenSecond.di
 import com.google.gson.GsonBuilder
 import com.mashup.tenSecond.BuildConfig
 import com.mashup.tenSecond.data.model.UserInstance
-import com.mashup.tenSecond.data.repository.ApiService
-import com.mashup.tenSecond.data.repository.NetworkRemote
-import com.mashup.tenSecond.data.repository.RemoteRepository
+import com.mashup.tenSecond.data.repository.remote.ApiService
+import com.mashup.tenSecond.data.repository.RemoteDataSource
+import com.mashup.tenSecond.data.repository.ApiDataSource
 import com.mashup.tenSecond.data.repository.Repository
 import com.mashup.tenSecond.ui.chat.ChatRoomListViewModelFactory
 import com.mashup.tenSecond.ui.chat.ChatRoomViewModelFactory
@@ -64,11 +64,11 @@ val apiModules: Module = module {
     }
 
     single {
-        NetworkRemote(get())
+        RemoteDataSource(get())
     }
 
     single {
-        RemoteRepository(get()) as Repository
+        ApiDataSource(get()) as Repository
     }
 
 }

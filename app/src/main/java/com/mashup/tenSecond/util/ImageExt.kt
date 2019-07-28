@@ -1,5 +1,6 @@
 package com.mashup.tenSecond.util
 
+import android.net.Uri
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -32,6 +33,23 @@ fun ImageView.setImageWithGlide(resId: Int) =
                     RequestOptions()
                         .centerCrop()
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .error(R.mipmap.ic_launcher_round)
+                )
+                .into(this)
+        } catch (e: Exception) {
+        }
+    }
+
+fun ImageView.setImageWithGlide(uri: Uri) =
+    uri.let {
+        try {
+            Glide.with(context)
+                .load(it)
+                .apply(
+                    RequestOptions()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .error(R.mipmap.ic_launcher_round)
                 )
                 .into(this)
         } catch (e: Exception) {

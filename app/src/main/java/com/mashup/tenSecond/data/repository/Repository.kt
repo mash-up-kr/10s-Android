@@ -1,9 +1,7 @@
 package com.mashup.tenSecond.data.repository
 
-import com.mashup.tenSecond.data.model.AccessToken
-import com.mashup.tenSecond.data.model.ChatRoom
-import com.mashup.tenSecond.data.model.Friend
-import com.mashup.tenSecond.data.model.Message
+import com.mashup.tenSecond.data.model.*
+import com.mashup.tenSecond.data.repository.request.ProfileRequest
 import io.reactivex.Single
 
 interface Repository {
@@ -17,7 +15,8 @@ interface Repository {
         profile_image: String
     ): Single<AccessToken>
 
-    fun getProfile(): Single<Message>
+    fun getProfile(): Single<Profile>
+    fun changeProfile(profileRequest: ProfileRequest): Single<Message>
     fun getChatRoomList(): Single<MutableList<ChatRoom>>
     fun getChatRoomById(id: String, start: String)
 }

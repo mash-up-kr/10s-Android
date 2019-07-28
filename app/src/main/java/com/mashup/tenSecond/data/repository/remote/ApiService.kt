@@ -1,16 +1,11 @@
-package com.mashup.tenSecond.data.repository
+package com.mashup.tenSecond.data.repository.remote
 
-import com.mashup.tenSecond.data.model.AccessToken
-import com.mashup.tenSecond.data.model.ChatRoom
-import com.mashup.tenSecond.data.model.Friend
-import com.mashup.tenSecond.data.model.Message
+import com.mashup.tenSecond.data.model.*
 import com.mashup.tenSecond.data.repository.request.FriendRequest
 import com.mashup.tenSecond.data.repository.request.JoinRequest
+import com.mashup.tenSecond.data.repository.request.ProfileRequest
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 interface ApiService {
@@ -28,12 +23,17 @@ interface ApiService {
     fun joinUser(@Body joinRequest: JoinRequest): Single<AccessToken>
 
     @GET("/api/profile")
-    fun getProfile(): Single<Message>
+    fun getProfile(): Single<Profile>
+
+
+    @Multipart
+    @PUT("/api/profile")
+    fun changeProfile(@Body profileRequest: ProfileRequest): Single<Message>
 
     @GET("/api/chatRoom")
     fun getChatRoomList(): Single<MutableList<ChatRoom>>
 
     @GET("/api/chatRoom/{id}/message/{start}")
-    fun getChatRoomById(@Path("id") id :String , @Path("start") start : String = "")
+    fun getChatRoomById(@Path("id") id: String, @Path("start") start: String = "")
 
 }

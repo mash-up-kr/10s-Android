@@ -28,23 +28,21 @@ class FriendListViewModel(
     private val _event: MutableLiveData<Event<String>> = MutableLiveData()
     val event: LiveData<Event<String>> get() = _event
 
-    private val _listSize : MutableLiveData<Int> = MutableLiveData()
-    val listSize : LiveData<Int> get() = _listSize
-
+    private val _listSize: MutableLiveData<Int> = MutableLiveData()
+    val listSize: LiveData<Int> get() = _listSize
 
 
     fun isValidEmail(target: CharSequence): Boolean {
         return !TextUtils.isEmpty(target) && android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches()
     }
 
-    fun setMyProfile(){
+    fun setMyProfile() {
 
     }
 
 
-
     fun getFriendList() {
-        repository.getFriendList()
+        addDisposable(repository.getFriendList()
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -55,20 +53,20 @@ class FriendListViewModel(
                 },
                 {
                     _listSize.value = 0
-                    LogUtil.e(TAG, "친구목록 가져오기 실패",it)
+                    LogUtil.e(TAG, "친구목록 가져오기 실패", it)
                     myApplication.toastMakeToast("친구목록 가져오기 실패")
                 }
-            )
+            ))
     }
 
     fun addFriendList(email: String) {
-        repository.addFriendList(email)
+        addDisposable(repository.addFriendList(email)
             .subscribeOn(Schedulers.newThread())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {
                     LogUtil.e("TAG,", "서버 요청 성공 ${it}")
-                    if(it.message != "ERROR"){
+                    if (it.message != "ERROR") {
                         getFriendList()
                     }
                 },
@@ -76,7 +74,7 @@ class FriendListViewModel(
                     LogUtil.e("TAG,", "서버 요청 실패 ${it}")
                     myApplication.toastMakeToast("서버 요청 실패")
                 }
-            )
+            ))
     }
 
     fun deleteFriendList() {

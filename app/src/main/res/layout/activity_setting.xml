@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-
+        <variable name="viewmodel" type="com.mashup.tenSecond.ui.setting.SettingViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:orientation="vertical"
@@ -15,7 +15,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/friendListRecyclerView"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
@@ -88,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
                 android:textColor="#222222"
-                android:text=""
+                android:text="@{viewmodel.profile.nickname}"
                 android:background="@null"
                 android:fontFamily="@font/nanum_square_eb"
                 android:enabled="false"
@@ -102,7 +101,6 @@
                 android:id="@+id/idChangeButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I"
                 android:background="@null"
                 android:src="@drawable/ic_pencil"
                 app:layout_constraintTop_toTopOf="@id/idText"
@@ -114,10 +112,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:text=""
                 android:fontFamily="@font/nanum_square_b"
                 android:textSize="15sp"
                 android:textColor="#555555"
+                android:text="@{viewmodel.profile.status}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:enabled="false"
                 android:layout_marginTop="15dp"
