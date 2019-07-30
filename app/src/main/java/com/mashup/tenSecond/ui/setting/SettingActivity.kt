@@ -62,16 +62,13 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
     }
 
     fun initViewModel() {
-<<<<<<< HEAD
-        settingViewModel = ViewModelProviders.of(this, settingViewModelFactory).get(SettingViewModel::class.java)
+        settingViewModel = ViewModelProviders.of(this, viewModelFactory).get(SettingViewModel::class.java)
         binding.viewmodel = settingViewModel
         settingViewModel.getProfile()
         settingViewModel.profile.observe(this, androidx.lifecycle.Observer {
             profileImage.setGlideImage(it.profileImage)
         })
-=======
-        settingViewModel = ViewModelProviders.of(this, viewModelFactory).get(SettingViewModel::class.java)
->>>>>>> origin/master
+
     }
 
 
