@@ -19,7 +19,7 @@ class ChatRoomViewModel(val repository: Repository, val myApplication: Applicati
 
 
     fun getChatRoom(id: Int) {
-        addDisposable(repository.getChatRoomById(id)
+        addDisposable(repository.getChatRoomById(id,0)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
