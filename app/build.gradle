@@ -95,6 +95,8 @@ dependencies {
     implementation "com.google.firebase:firebase-core:$firebaseVersion"
     def firebaseAuthVersion = "17.0.0"
     implementation "com.google.firebase:firebase-auth:$firebaseAuthVersion"
+    def firebaseCMVersion = "19.0.1"
+    implementation "com.google.firebase:firebase-messaging:$firebaseCMVersion"
 
     //gms playservice
     def playserviceVersion = "16.0.1"

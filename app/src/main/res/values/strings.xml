@@ -3,6 +3,10 @@
     <string name="navigation_friend_list">FriendList</string>
     <string name="navigation_chat">Chat</string>
     <string name="navigation_setting">Setting</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="noti_title">메세지가 도착했습니다.</string>
+
     <string name="login_require">로그인이 필요한 서비스입니다.\n로그인 후 이용해주세요.</string>
     <string name="login_agree">
         <font color='#4a90e2'>이용약관</font>

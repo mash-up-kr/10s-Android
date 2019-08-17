@@ -12,9 +12,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.iid.FirebaseInstanceId
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import com.mashup.tenSecond.R
@@ -79,7 +81,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
     private fun checkPermission() {
         val permissionlistener = object : PermissionListener {
             override fun onPermissionGranted() {
-                googleLogin()
+                getFCMId()
             }
 
             override fun onPermissionDenied(deniedPermissions: List<String>) {
@@ -96,6 +98,19 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
             .check()
+    }
+
+    private fun getFCMId() {
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result?.token
+                LogUtil.e("LoginActivity", "token : ${task.result}")
+                googleLogin()
+            })
     }
 
     private fun init() {
@@ -123,8 +138,8 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
         }
         UserInstance.loadUserProfile(this)
         //임시
-        if (UserInstance.loadUserToken(this).isNullOrEmpty()) {
-            repository.joinUser(userEmail, userName, authType, userPhotoUrl)
+        if (UserInstance.loadUserToken(this).isEmpty()) {
+            addDisposable(repository.joinUser(userEmail, userName, authType, userPhotoUrl)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -138,9 +153,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                         this.toastMakeToast("서버 요청 실패")
                     }
                 )
+            )
         } else {
             //auth 인증
-            repository.getUserAuthentication()
+            addDisposable(repository.getUserAuthentication()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -155,6 +171,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), GoogleApiClient.OnCo
                         this.toastMakeToast("서버 요청 실패")
                     }
                 )
+            )
         }
     }
 
