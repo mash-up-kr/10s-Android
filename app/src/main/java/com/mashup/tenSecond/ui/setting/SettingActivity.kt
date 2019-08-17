@@ -42,15 +42,15 @@ class SettingActivity : BaseActivity<ActivitySettingBinding>() {
 
     fun init() {
         idChangeButton.setOnClickListener {
-            idText.setEnabled(true)
+            idText.isEnabled = true
             idChangeButton.setVisibility(View.INVISIBLE)
-            stateText.setEnabled(false)
+            stateText.isEnabled = false
             stateChangeButton.setVisibility(View.VISIBLE)
         }
         stateChangeButton.setOnClickListener {
-            idText.setEnabled(false)
+            idText.isEnabled = false
             idChangeButton.setVisibility(View.VISIBLE)
-            stateText.setEnabled(true)
+            stateText.isEnabled = true
             stateChangeButton.setVisibility(View.INVISIBLE)
         }
         getProfileImageBtn.setOnClickListener {

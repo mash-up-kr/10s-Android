@@ -21,7 +21,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-const val BASEURL = "http://ec2-54-180-102-205.ap-northeast-2.compute.amazonaws.com:5000"
+const val BASEURL = "http://52.78.119.14:5000"
 
 
 val apiModules: Module = module {
